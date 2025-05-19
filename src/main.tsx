@@ -7,7 +7,7 @@ import './index.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Router>
+    <Router basename="/Portfolio">
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/projects/:id" element={<ProjectDetail />} />

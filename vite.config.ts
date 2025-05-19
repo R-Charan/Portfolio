@@ -10,5 +10,5 @@ export default defineConfig({
   server: {
     host: true,
   },
-base: process.env.NODE_ENV === 'production' ? '/Portfolio/' : '/',	
+base: '/Portfolio/',	
 });
