@@ -20,7 +20,7 @@ const PROJECTS = [
     id: "project1",
     title: "Grasp Planning",
     description: "Grasp Planning Executed on a Robotiq 3 Finger Underactuated Gripper mounted a UR5e Cobot to pick and place objects.",
-    image: "/assets/Grasp_Planning/Grasp_Planning_Cover.png",
+    image: "/Portfolio/assets/Grasp_Planning/Grasp_Planning_Cover.png",
     github: "https://github.com/R-Charan/Grasp_Planning"
   },
   {
