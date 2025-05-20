@@ -40,20 +40,19 @@ const PROJECTS: Record<string, ProjectDetail> = {
     `,
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80',
-        caption: 'Main Dashboard'
+        url: '/Portfolio/assets/Grasp_Planning/UR5e_simulation.png',
+        caption: 'Full Setup in ROS Noetic with Gazebo'
       },
       {
-        url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80',
-        caption: 'Code Editor Interface'
+        url: '/Portfolio/assets/Grasp_Planning/Obstacle.png',
+        caption: 'Grasp Planning considering Obstacle Positioning'
       },
       {
-        url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80',
-        caption: 'Analytics Dashboard'
+        url: '/Portfolio/assets/Grasp_Planning/Cylinder.png',
+        caption: 'Grasp Planning for a cylindrical object'
       }
     ],
-    github: 'https://github.com/yourusername/project2',
-    youtube: 'https://youtube.com/watch?v=demo'
+    github: 'https://github.com/R-Charan/Grasp_Planning'
   },
 
   // New project added here
@@ -76,16 +75,19 @@ const PROJECTS: Record<string, ProjectDetail> = {
     `,
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1562059390-a761a084768e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80',
-        caption: 'Device Deployed in Field'
+        url: '/Portfolio/assets/Project_Auxilium/Full_Setup.png',
+        caption: 'Full Setup'
       },
       {
-        url: 'https://images.unsplash.com/photo-1603781566382-1a53ed6fc2b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80',
-        caption: 'Web Dashboard - Real-time Data'
+        url: '/Portfolio/assets/Project_Auxilium/Single_Leg.png',
+        caption: 'Single Leg'
+      },
+      {
+        url: '/Portfolio/assets/Project_Auxilium/PCB.png',
+        caption: 'PCB design for master slave connection of motors'
       }
     ],
-    github: 'https://github.com/yourusername/weather-station',
-    youtube: 'https://youtube.com/watch?v=weatherdemo'
+    github: 'https://github.com/R-Charan/Project_Auxilium',
   },
   'project3': {
     id: 'project3',
@@ -266,17 +268,6 @@ function ProjectDetail() {
               >
                 <Github className="w-5 h-5 mr-2" />
                 View on GitHub
-              </a>
-            )}
-            {project.youtube && (
-              <a
-                href={project.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700"
-              >
-                <Youtube className="w-5 h-5 mr-2" />
-                Watch Demo
               </a>
             )}
           </div>

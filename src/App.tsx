@@ -27,7 +27,7 @@ const PROJECTS = [
     id: "project2",
     title: "Gait Control of Lower Limb Exoskeleton",
     description: "Control the gait of a lower limb exoskeleton to facilitate better gait patterns for people with weaker lower body strength",
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    image: "/Portfolio/assets/Project_Auxilium/Full_Setup.png",
     github: "https://github.com/R-Charan/Project_Auxilium"
   },
   {
@@ -144,16 +144,28 @@ const HOBBIES = [
 
 const AFFILIATIONS = [
   {
-    organization: "IEEE Computer Society",
-    role: "Member",
-    period: "2020 - Present",
-    logo: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+    organization: "Robotics and Machine Intelligence Club",
+    role: "Vice - President",
+    period: "2023 - 2024",
+    logo: "/Portfolio/assets/Homepage/RMI.png"
   },
   {
-    organization: "ACM",
-    role: "Professional Member",
-    period: "2019 - Present",
-    logo: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+    organization: "Chess Team, NITT",
+    role: "Member",
+    period: "2023 - 2024",
+    logo: "/Portfolio/assets/Homepage/NITT.png"
+  },
+  {
+    organization: "Synergy, Mechanical Department Symposium",
+    role: "Workshop Coordinator",
+    period: "2021 - 2022",
+    logo: "/Portfolio/assets/Homepage/Synergy.avif"
+  },
+  {
+    organization: "Ignitte, NITT",
+    role: "Student Mentor",
+    period: "2021 - 2022",
+    logo: "/Portfolio/assets/Homepage/Ignitte.png"
   },
 ];
 
@@ -368,7 +380,7 @@ function App() {
         {/* Affiliations Section */}
         <section id="affiliations" className="bg-white py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Professional Affiliations</h2>
+            <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Affiliations</h2>
             <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {AFFILIATIONS.map((affiliation, index) => (
                 <div 
