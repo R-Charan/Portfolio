@@ -19,24 +19,24 @@ interface ProjectDetail {
 const PROJECTS: Record<string, ProjectDetail> = {
   'project1': {
     id: 'project1',
-    title: 'Grasp Planning',
-    description: `
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    title: 'Grasp Planning on a Robotiq 3 Finger Gripper',
+    description: `Institution: IIT Madras - VM Robotics Research & Teaching Lab  
+Duration: May 2023 - December 2023  
+Tools: ROS, GraspIt!, MoveIt!, Gazebo, Intel RealSense D455, UR5e, RobotIQ Gripper, MATLAB, Arduino
 
-      Features:
-      • Feature 1: Description of feature 1
-      • Feature 2: Description of feature 2
-      • Feature 3: Description of feature 3
+This project focused on developing grasping and manipulation capabilities using a 3-finger adaptive RobotIQ gripper mounted on a UR5e robotic arm. The goal was to enable autonomous grasping of primitive shapes by integrating perception, grasp planning, motion control, and feedback-based slip detection.
 
-      Technologies Used:
-      • React.js
-      • Node.js
-      • MongoDB
-      • Docker
+Key Contributions:
+- Vision-Based Grasp Detection: Used Intel RealSense D455 RGB-D data to extract object geometry for planning.
+- Grasp Planning with GraspIt!: Simulated and evaluated stable grasps using the EigenGrasp planner for reduced complexity.
+- Motion Execution: Integrated MoveIt! and enabled cross-system ROS node communication to control the UR5e.
+- Slip Detection: Implemented Force Sensitive Resistors (FSRs) with Arduino and MATLAB to detect and respond to slip during grasp.
+- Mathematical Modeling: Analyzed grasp dynamics including wrenches, friction cones, and quality metrics.
+- 3D Model Integration: Automated STL import and scaling for object mesh-based grasp planning.
 
-      The project was developed with scalability in mind, implementing best practices and modern architecture patterns.
-      It includes comprehensive testing, CI/CD pipeline integration, and detailed documentation.
+Outcome:
+Successfully built an end-to-end robotic grasping pipeline from perception to physical execution, demonstrating robust manipulation and feedback control in real-world conditions.
+      
     `,
     images: [
       {
@@ -116,8 +116,7 @@ const PROJECTS: Record<string, ProjectDetail> = {
         caption: 'Web Dashboard - Real-time Data'
       }
     ],
-    github: 'https://github.com/yourusername/weather-station',
-    youtube: 'https://youtube.com/watch?v=weatherdemo'
+    github: 'https://github.com/RMI-NITT/ROVER/tree/robofest',
   },
   'project4': {
     id: 'project4',
@@ -146,8 +145,7 @@ const PROJECTS: Record<string, ProjectDetail> = {
         caption: 'Web Dashboard - Real-time Data'
       }
     ],
-    github: 'https://github.com/yourusername/weather-station',
-    youtube: 'https://youtube.com/watch?v=weatherdemo'
+    github: 'https://github.com/RMI-NITT/ANVI',
   },
   'project5': {
     id: 'project5',

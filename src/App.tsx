@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Award, ChevronLeft, ChevronRight, Menu, X } from 'lucide-react';
+import { Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Award, ChevronLeft, ChevronRight, Menu, X, Calendar } from 'lucide-react';
 
 // Replace these with your actual information
 const PERSONAL_INFO = {
   name: "R Charan Bhardhwaj",
   title: "Robotics Engineer",
-  photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+  photo: "/Portfolio/assets/Homepage/Cover Photo.jpg",
   about: "Passionate software developer with expertise in building scalable applications...",
   linkedin: "https://www.linkedin.com/in/r-charan-bhardhwaj-2827981b7/",
   github: "https://github.com/R-Charan",
@@ -21,35 +21,40 @@ const PROJECTS = [
     title: "Grasp Planning",
     description: "Grasp Planning Executed on a Robotiq 3 Finger Underactuated Gripper mounted a UR5e Cobot to pick and place objects.",
     image: "/Portfolio/assets/Grasp_Planning/Grasp_Planning_Cover.png",
-    github: "https://github.com/R-Charan/Grasp_Planning"
+    github: "https://github.com/R-Charan/Grasp_Planning",
+    skills: "ROS Noetic, Python, C++, Grasp Kinematics"
   },
   {
     id: "project2",
     title: "Gait Control of Lower Limb Exoskeleton",
     description: "Control the gait of a lower limb exoskeleton to facilitate better gait patterns for people with weaker lower body strength",
     image: "/Portfolio/assets/Project_Auxilium/Full_Setup.png",
-    github: "https://github.com/R-Charan/Project_Auxilium"
+    github: "https://github.com/R-Charan/Project_Auxilium",
+    skills: "Embedded Systems, SolidWorks, MATLAB"
   },
   {
     id: "project3",
     title: "Virya - The Rover",
     description: "Build a Rover with 6 wheels and Adjustable Rocker-Bogie Suspension and Ideal steering to do data collection for terrain mapping when deployed on extra-terrestrial surfaces.",
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-    github: "https://github.com/yourusername/project1"
-  }, 
+    github: "https://github.com/RMI-NITT/ROVER/tree/robofest",
+    skills: "Arduino IDE, SolidWorks, ROS Noetic"
+  },
   {
     id: "project4",
     title: "Assistance in Navigation for the Visually Impaired",
     description: "A solution proposed to help the visually impaired navigate with the help of camera module, ESP32, LiDAR and Jetson Nano.",
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-    github: "https://github.com/yourusername/project1"
+    github: "https://github.com/RMI-NITT/ANVI",
+    skills: "Arduino IDE, Deep Learning"
   },
   {
     id: "project5",
     title: "AgriBot",
     description: "Developed an algorithm for a robot to autonomously transverse the arena and detect ripe fruits using OpenCV using thresholding techniques.",
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-    github: "https://github.com/krishnakvs10/eyrc-2021"
+    github: "https://github.com/krishnakvs10/eyrc-2021",
+    skills: "ROS Noetic, OpenCV, Python"
   }
 ];
 
@@ -173,7 +178,7 @@ function App() {
   const navigate = useNavigate();
   const projectsContainerRef = useRef<HTMLDivElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: 'smooth' });
@@ -183,10 +188,10 @@ function App() {
   const scrollProjects = (direction: 'left' | 'right') => {
     if (projectsContainerRef.current) {
       const scrollAmount = 420;
-      const scrollPosition = direction === 'left' 
+      const scrollPosition = direction === 'left'
         ? projectsContainerRef.current.scrollLeft - scrollAmount
         : projectsContainerRef.current.scrollLeft + scrollAmount;
-      
+
       projectsContainerRef.current.scrollTo({
         left: scrollPosition,
         behavior: 'smooth'
@@ -249,7 +254,11 @@ function App() {
       {/* Main Content */}
       <div className="pt-16">
         {/* Hero Section - Full Height */}
-        <section id="home" className="relative bg-cover bg-center min-h-[calc(100vh-4rem)] flex items-center" style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80")' }}>
+        <section
+  id="home"
+  className="relative bg-cover bg-center min-h-[calc(100vh-4rem)] flex items-center"
+  style={{ backgroundImage: "url('/Portfolio/assets/Homepage/Background.png')" }}
+>
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50"></div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
             <div className="flex flex-col md:flex-row items-center justify-between">
@@ -283,11 +292,11 @@ function App() {
               </div>
               <div className="mt-8 md:mt-0 md:w-1/2 flex justify-center">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-blue-400/20 rounded-full transform translate-x-2 translate-y-2"></div>
+                  <div className="absolute inset-0 rounded-full transform translate-x-2 translate-y-2"></div>
                   <img
                     src={PERSONAL_INFO.photo}
                     alt={PERSONAL_INFO.name}
-                    className="relative rounded-full w-64 h-64 object-cover shadow-lg border-4 border-white"
+                    className="relative rounded-full w-64 h-64 object-cover object-[center_0%] shadow-lg border-4 border-white"
                   />
                 </div>
               </div>
@@ -306,14 +315,14 @@ function App() {
               >
                 <ChevronLeft className="w-6 h-6 text-gray-600" />
               </button>
-              <div 
+              <div
                 ref={projectsContainerRef}
                 className="overflow-x-auto pb-4 hide-scrollbar"
               >
                 <div className="flex space-x-6 min-w-max">
                   {PROJECTS.map((project) => (
-                    <div 
-                      key={project.id} 
+                    <div
+                      key={project.id}
                       className="w-[400px] flex-none bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl"
                     >
                       <img
@@ -322,13 +331,19 @@ function App() {
                         className="w-full h-48 object-cover"
                       />
                       <div className="p-6">
-                        <button 
+                        <button
                           onClick={() => navigate(`/projects/${project.id}`)}
                           className="block text-xl font-semibold text-gray-900 hover:text-blue-600 transition duration-300"
                         >
                           {project.title}
                         </button>
                         <p className="mt-2 text-gray-500 line-clamp-3">{project.description}</p>
+
+                        {/* New Skills Line */}
+                        <p className="mt-2 text-sm text-gray-700 font-medium">
+                          Skills/Concepts: {project.skills}
+                        </p>
+
                         <a
                           href={project.github}
                           target="_blank"
@@ -383,13 +398,13 @@ function App() {
             <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Affiliations</h2>
             <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {AFFILIATIONS.map((affiliation, index) => (
-                <div 
-                  key={index} 
-                  className="bg-white rounded-lg shadow-lg p-6 transform transition duration-300 hover:scale-105 hover:shadow-xl"
+                <div
+                  key={index}
+                  className="bg-white rounded-lg shadow-lg p-6"
                 >
                   <div className="flex items-center mb-4">
-                    <img 
-                      src={affiliation.logo} 
+                    <img
+                      src={affiliation.logo}
                       alt={affiliation.organization}
                       className="w-12 h-12 object-cover rounded-lg mr-4"
                     />
@@ -399,7 +414,7 @@ function App() {
                     </div>
                   </div>
                   <div className="flex items-center text-gray-500">
-                    <Award className="w-4 h-4 mr-2" />
+                    <Calendar className="w-4 h-4 mr-2" />
                     <span>{affiliation.period}</span>
                   </div>
                 </div>
