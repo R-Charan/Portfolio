@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Home, Github, Youtube, ArrowLeft } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+
 
 interface ProjectImage {
   url: string;
@@ -20,7 +22,7 @@ const PROJECTS: Record<string, ProjectDetail> = {
   'project1': {
     id: 'project1',
     title: 'Grasp Planning on a Robotiq 3 Finger Gripper',
-    description: `**Institution**: IIT Madras - VM Robotics Research & Teaching Lab  
+    description: `**Institution**: IIT Madras - VM Robotics Research & Teaching Lab
 Duration: May 2023 - December 2023  
 Tools: ROS, GraspIt!, MoveIt!, Gazebo, Intel RealSense D455, UR5e, RobotIQ Gripper, MATLAB, Arduino
 
@@ -254,11 +256,33 @@ function ProjectDetail() {
         {/* Description */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-12">
           <div className="prose max-w-none">
-            {project.description.split('\n').map((paragraph, index) => (
-              <p key={index} className="mb-4 text-gray-700 whitespace-pre-line">
-                {paragraph}
-              </p>
-            ))}
+            <ReactMarkdown
+              components={{
+                p: ({ children }) => <p className="mb-4 text-gray-700">{children}</p>,
+                strong: ({ children }) => <strong className="font-bold text-gray-900">{children}</strong>,
+                em: ({ children }) => <em className="italic">{children}</em>,
+                ul: ({ children }) => <ul className="list-disc pl-6 mb-4 text-gray-700">{children}</ul>,
+                ol: ({ children }) => <ol className="list-decimal pl-6 mb-4 text-gray-700">{children}</ol>,
+                li: ({ children }) => <li className="mb-1">{children}</li>,
+                h1: ({ children }) => <h1 className="text-2xl font-bold mb-4 mt-6 text-gray-900">{children}</h1>,
+                h2: ({ children }) => <h2 className="text-xl font-bold mb-3 mt-5 text-gray-900">{children}</h2>,
+                h3: ({ children }) => <h3 className="text-lg font-semibold mb-2 mt-4 text-gray-800">{children}</h3>,
+                h4: ({ children }) => <h4 className="text-base font-semibold mb-2 mt-3 text-gray-800">{children}</h4>,
+                // Add this link component:
+                a: ({ href, children }) => (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 underline hover:text-blue-800 transition-colors duration-200"
+                  >
+                    {children}
+                  </a>
+                ),
+              }}
+            >
+              {project.description}
+            </ReactMarkdown>
           </div>
         </div>
 
