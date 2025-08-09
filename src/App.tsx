@@ -7,8 +7,9 @@ const PERSONAL_INFO = {
   name: "R Charan Bhardhwaj",
   title: "Robotics Engineer",
   photo: "/Portfolio/assets/Homepage/Cover Photo.jpg",
-  about: "Passionate software developer with expertise in building scalable applications...",
-  linkedin: "https://www.linkedin.com/in/r-charan-bhardhwaj-2827981b7/",
+  about: "I work at the intersection of control systems, embedded design, and \
+  robotics to create assistive technologies that move with purpose and adapt to people. Whether it’s a smart gripper or a wearable exoskeleton, I care about building systems that respond, not just react.",
+  linkedin: "https://www.linkedin.com/in/r-charan-bhardhwaj",
   github: "https://github.com/R-Charan",
   email: "rcharanbhardhwaj@gmail.com",
   phone: "+91 7598565710",
@@ -36,7 +37,7 @@ const PROJECTS = [
     id: "project3",
     title: "Virya - The Rover",
     description: "Build a Rover with 6 wheels and Adjustable Rocker-Bogie Suspension and Ideal steering to do data collection for terrain mapping when deployed on extra-terrestrial surfaces.",
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    image: "/Portfolio/assets/Virya/Cover.webp",
     github: "https://github.com/RMI-NITT/ROVER/tree/robofest",
     skills: "Arduino IDE, SolidWorks, ROS Noetic"
   },
@@ -44,7 +45,7 @@ const PROJECTS = [
     id: "project4",
     title: "Assistance in Navigation for the Visually Impaired",
     description: "A solution proposed to help the visually impaired navigate with the help of camera module, ESP32, LiDAR and Jetson Nano.",
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    image: "/Portfolio/assets/ANVI/VQAS.webp",
     github: "https://github.com/RMI-NITT/ANVI",
     skills: "Arduino IDE, Deep Learning"
   },
@@ -52,7 +53,7 @@ const PROJECTS = [
     id: "project5",
     title: "AgriBot",
     description: "Developed an algorithm for a robot to autonomously transverse the arena and detect ripe fruits using OpenCV using thresholding techniques.",
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    image: "/Portfolio/assets/AgriBot/Cover.jpeg",
     github: "https://github.com/krishnakvs10/eyrc-2021",
     skills: "ROS Noetic, OpenCV, Python"
   }
@@ -255,10 +256,10 @@ function App() {
       <div className="pt-16">
         {/* Hero Section - Full Height */}
         <section
-  id="home"
-  className="relative bg-cover bg-center min-h-[calc(100vh-4rem)] flex items-center"
-  style={{ backgroundImage: "url('/Portfolio/assets/Homepage/Background.png')" }}
->
+          id="home"
+          className="relative bg-cover bg-center min-h-[calc(100vh-4rem)] flex items-center"
+          style={{ backgroundImage: "url('/Portfolio/assets/Homepage/Background.png')" }}
+        >
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50"></div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
             <div className="flex flex-col md:flex-row items-center justify-between">
@@ -280,7 +281,7 @@ function App() {
                     LinkedIn
                   </a>
                   <a
-                    href="/resume.pdf"
+                    href="https://drive.google.com/file/d/1bwJzd-vFea0b1D6AThBjXqKVGcbwfeiJ/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-white hover:text-blue-300 flex items-center"
@@ -429,8 +430,8 @@ function App() {
             <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Hobbies</h2>
             <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {HOBBIES.map((hobby, index) => (
-                <div key={index} className="bg-gray-50 rounded-lg p-4 text-center">
-                  <span className="text-lg text-gray-700">{hobby}</span>
+                <div key={index} className="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow duration-200">
+                  <span className="text-lg text-gray-700 font-medium">{hobby}</span>
                 </div>
               ))}
             </div>
