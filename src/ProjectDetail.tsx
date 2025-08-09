@@ -20,13 +20,13 @@ const PROJECTS: Record<string, ProjectDetail> = {
   'project1': {
     id: 'project1',
     title: 'Grasp Planning on a Robotiq 3 Finger Gripper',
-    description: `Institution: IIT Madras - VM Robotics Research & Teaching Lab  
+    description: `**Institution**: IIT Madras - VM Robotics Research & Teaching Lab  
 Duration: May 2023 - December 2023  
 Tools: ROS, GraspIt!, MoveIt!, Gazebo, Intel RealSense D455, UR5e, RobotIQ Gripper, MATLAB, Arduino
 
 This project focused on developing grasping and manipulation capabilities using a 3-finger adaptive RobotIQ gripper mounted on a UR5e robotic arm. The goal was to enable autonomous grasping of primitive shapes by integrating perception, grasp planning, motion control, and feedback-based slip detection.
 
-Key Contributions:
+**Key Contributions:**
 - Vision-Based Grasp Detection: Used Intel RealSense D455 RGB-D data to extract object geometry for planning.
 - Grasp Planning with GraspIt!: Simulated and evaluated stable grasps using the EigenGrasp planner for reduced complexity.
 - Motion Execution: Integrated MoveIt! and enabled cross-system ROS node communication to control the UR5e.
@@ -34,9 +34,10 @@ Key Contributions:
 - Mathematical Modeling: Analyzed grasp dynamics including wrenches, friction cones, and quality metrics.
 - 3D Model Integration: Automated STL import and scaling for object mesh-based grasp planning.
 
-Outcome:
+**Outcome:**
 Successfully built an end-to-end robotic grasping pipeline from perception to physical execution, demonstrating robust manipulation and feedback control in real-world conditions.
       
+**Internship Report:** The internship report can be accessed [here](https://doi.org/10.5281/zenodo.16679624).
     `,
     images: [
       {
@@ -60,19 +61,17 @@ Successfully built an end-to-end robotic grasping pipeline from perception to ph
     id: 'project2',
     title: 'Gait Control of Lower Limb Exoskeleton',
     description: `
-      A weather station built using ESP32 and various environmental sensors. The device collects temperature, humidity, and air pressure data and sends it to a cloud dashboard in real-time.
 
-      Features:
-      • Real-time data collection and upload
-      • Web dashboard with live charts
-      • Power-efficient design for solar-powered operation
+**Features**:
+- Real-time data collection and upload
+- Web dashboard with live charts
+- Power-efficient design for solar-powered operation
 
-      Technologies Used:
-      • ESP32 (ESP-IDF)
-      • InfluxDB + Grafana
-      • MQTT over WiFi
-      • Docker (for dashboard hosting)
-    `,
+**Technologies Used**:
+- ESP32 (ESP-IDF)
+- InfluxDB + Grafana
+- MQTT over WiFi
+- Docker (for dashboard hosting)`,
     images: [
       {
         url: '/Portfolio/assets/Project_Auxilium/Full_Setup.png',
@@ -89,6 +88,7 @@ Successfully built an end-to-end robotic grasping pipeline from perception to ph
     ],
     github: 'https://github.com/R-Charan/Project_Auxilium',
   },
+
   'project3': {
     id: 'project3',
     title: 'Virya - The Rover',
@@ -108,12 +108,16 @@ Successfully built an end-to-end robotic grasping pipeline from perception to ph
     `,
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1562059390-a761a084768e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80',
-        caption: 'Device Deployed in Field'
+        url: '/Portfolio/assets/Virya/Rover_exploded_view.gif',
+        caption: 'Rover Exploded View'
       },
       {
-        url: 'https://images.unsplash.com/photo-1603781566382-1a53ed6fc2b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80',
-        caption: 'Web Dashboard - Real-time Data'
+        url: '/Portfolio/assets/Virya/Rover Final Assembly.jpg',
+        caption: 'Final Assembly'
+      },
+      {
+        url: '/Portfolio/assets/Virya/Final_Assembly_Alternate.webp',
+        caption: 'Final Assembly Alternate View'
       }
     ],
     github: 'https://github.com/RMI-NITT/ROVER/tree/robofest',
@@ -137,19 +141,23 @@ Successfully built an end-to-end robotic grasping pipeline from perception to ph
     `,
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1562059390-a761a084768e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80',
-        caption: 'Device Deployed in Field'
+        url: '/Portfolio/assets/ANVI/Flowchart.webp',
+        caption: 'Proposed Solution'
       },
       {
-        url: 'https://images.unsplash.com/photo-1603781566382-1a53ed6fc2b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80',
-        caption: 'Web Dashboard - Real-time Data'
+        url: '/Portfolio/assets/ANVI/SIH Award.webp',
+        caption: 'Winning SIH 2022'
+      },
+      {
+        url: '/Portfolio/assets/ANVI/Fall Detected.webp',
+        caption: 'Emergency Alert when fall detected'
       }
     ],
     github: 'https://github.com/RMI-NITT/ANVI',
   },
   'project5': {
     id: 'project5',
-    title: 'AgriBot',
+    title: 'AgriBot E-Yantra Robotics Competition \'21-\'22',
     description: `
       A weather station built using ESP32 and various environmental sensors. The device collects temperature, humidity, and air pressure data and sends it to a cloud dashboard in real-time.
 
@@ -165,14 +173,14 @@ Successfully built an end-to-end robotic grasping pipeline from perception to ph
       • Docker (for dashboard hosting)
     `,
     images: [
-      {
-        url: 'https://images.unsplash.com/photo-1562059390-a761a084768e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80',
-        caption: 'Device Deployed in Field'
-      },
-      {
-        url: 'https://images.unsplash.com/photo-1603781566382-1a53ed6fc2b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80',
-        caption: 'Web Dashboard - Real-time Data'
-      }
+      // {
+      //   url: 'https://images.unsplash.com/photo-1562059390-a761a084768e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80',
+      //   caption: 'Device Deployed in Field'
+      // },
+      // {
+      //   url: 'https://images.unsplash.com/photo-1603781566382-1a53ed6fc2b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80',
+      //   caption: 'Web Dashboard - Real-time Data'
+      // }
     ],
     github: 'https://github.com/yourusername/weather-station',
     youtube: 'https://youtube.com/watch?v=weatherdemo'
