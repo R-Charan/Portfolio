@@ -53,7 +53,7 @@ const PROJECTS = [
     id: "project5",
     title: "AgriBot",
     description: "Developed an algorithm for a robot to autonomously transverse the arena and detect ripe fruits using OpenCV using thresholding techniques.",
-    image: "/Portfolio/assets/AgriBot/Cover.jpeg",
+    image: "/Portfolio/assets/AgriBot/Cover_photo.png",
     github: "https://github.com/krishnakvs10/eyrc-2021",
     skills: "ROS Noetic, OpenCV, Python"
   }
@@ -440,26 +440,24 @@ function App() {
 
         {/* Contact Section */}
         <section id="contact" className="bg-white py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Contact Me</h2>
-            <div className="mt-8 space-y-4">
-              <div className="flex items-center space-x-4">
-                <Mail className="w-6 h-6 text-gray-600" />
-                <a href={`mailto:${PERSONAL_INFO.email}`} className="text-lg text-blue-600 hover:text-blue-800">
-                  {PERSONAL_INFO.email}
-                </a>
-              </div>
-              <div className="flex items-center space-x-4">
-                <Phone className="w-6 h-6 text-gray-600" />
-                <span className="text-lg text-gray-700">{PERSONAL_INFO.phone}</span>
-              </div>
-              <div className="flex items-center space-x-4">
-                <MapPin className="w-6 h-6 text-gray-600" />
-                <span className="text-lg text-gray-700">{PERSONAL_INFO.location}</span>
-              </div>
-            </div>
-          </div>
-        </section>
+ <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+   <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Get In Touch</h2>
+   <div className="bg-gray-50 rounded-lg p-8 text-center">
+     <p className="text-gray-600 mb-6">
+       Interested in discussing about anything or exploring collaboration opportunities?
+     </p>
+     <div className="flex justify-center">
+       <a 
+         href={`mailto:${PERSONAL_INFO.email}`} 
+         className="inline-flex items-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+       >
+         <Mail className="w-5 h-5" />
+         <span>Send Email</span>
+       </a>
+     </div>
+   </div>
+ </div>
+</section>
       </div>
     </div>
   );

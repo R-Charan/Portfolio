@@ -63,17 +63,52 @@ Successfully built an end-to-end robotic grasping pipeline from perception to ph
     id: 'project2',
     title: 'Gait Control of Lower Limb Exoskeleton',
     description: `
+## Project Overview
 
-**Features**:
-- Real-time data collection and upload
-- Web dashboard with live charts
-- Power-efficient design for solar-powered operation
+This project presents an innovative underactuated lower limb exoskeleton that achieves remarkable human strength augmentation 
+while maintaining natural gait patterns. Our breakthrough 4-DOF approach (hip and knee joints only) provides effective power augmentation 
+at reduced complexity and cost compared to traditional 6+ DOF systems.
+The exoskeleton employs a hybrid PD + Bang-Bang controller with real-time gait pattern tracking, enabling users to carry heavy loads with 
+significantly reduced muscle effort while preserving natural walking biomechanics.
 
-**Technologies Used**:
-- ESP32 (ESP-IDF)
-- InfluxDB + Grafana
-- MQTT over WiFi
-- Docker (for dashboard hosting)`,
+## Technical Stack
+
+**Hardware:**
+- BLDC motors with torque and position control
+- Inertial Measurement Unit (IMU) for real-time feedback
+- Custom microcontroller with integrated motor drivers
+- 4-DOF mechanical frame (bilateral hip and knee joints)
+
+**Software:**
+- Real-time angle monitoring system
+- Speed-to-duty cycle mapping with threshold control
+- Custom PCB design for motor control integration
+
+**Control Architecture:**
+- Hybrid PD + Bang-Bang control system
+- Multi-point ground contact stability
+- Motion compensation algorithms
+
+## Notable Achievements
+
+- **400% strength augmentation** validated through comprehensive EMG testing
+- **5x peak strength amplification** capability demonstrated
+- **Real-time gait control** with stable, repeating gait cycles
+- **Successful prototype validation** showing significant reduction in muscle activation during load-bearing tasks
+- **Cost-effective approach** making exoskeleton technology more accessible for practical applications
+
+## Research Team
+**Project Members:**
+- Adithya Venkata Narayanan - 111120001
+- R Charan Bhardhwaj - 111120109
+
+**Faculty Guides:**
+- Dr. N Siva Shanmugam (Internal Guide)
+- Dr. D Ezhilarasi (Co-Guide)
+
+**Thesis:** The thesis can be accessed [here](https://doi.org/10.5281/zenodo.16747860).
+
+**Institution:** National Institute of Technology, Tiruchirapalli (NITT)`,
     images: [
       {
         url: '/Portfolio/assets/Project_Auxilium/Full_Setup.png',
@@ -95,18 +130,28 @@ Successfully built an end-to-end robotic grasping pipeline from perception to ph
     id: 'project3',
     title: 'Virya - The Rover',
     description: `
-      A weather station built using ESP32 and various environmental sensors. The device collects temperature, humidity, and air pressure data and sends it to a cloud dashboard in real-time.
+# Project Overview:
+This project focuses on developing a rover with rocker bogie suspension mechanism that is capable to traversing any terrain. The skeletal frame was
+designed using SolidWorks and the was fabricated using Al extrusion rods. The rover is powered by an Arduino Uno and a 12V battery. The rover is equipped
+with IMU sensor to measure the orientation and distance travelled, a kinect camera to detect obstacles, and a servo motor to control the steering. 
+The rover uses ideal steering system to make a turn of any desired radius. 
 
-      Features:
-      • Real-time data collection and upload
-      • Web dashboard with live charts
-      • Power-efficient design for solar-powered operation
+**Technical Stack**
+- Arduino Uno
+- IMU Signal Processing
+- Object Detection
+- SolidWorks
 
-      Technologies Used:
-      • ESP32 (ESP-IDF)
-      • InfluxDB + Grafana
-      • MQTT over WiFi
-      • Docker (for dashboard hosting)
+**Project Team**
+- Sourav Selvaraj
+- R Charan Bhardhwaj
+- Akhil Kasyap
+- Krishna Kishore
+- Vallimayl
+
+**Notable Achievements**
+- Runner-Up in Sangam Hardware Hackathon \'22 - \'23, Defence and Space Domain
+- Pre-Finalist in Robofest \'22 - \'23, GUJCOST
     `,
     images: [
       {
@@ -128,19 +173,30 @@ Successfully built an end-to-end robotic grasping pipeline from perception to ph
     id: 'project4',
     title: 'Assistance in Navigation for the Visually Impaired',
     description: `
-      A weather station built using ESP32 and various environmental sensors. The device collects temperature, humidity, and air pressure data and sends it to a cloud dashboard in real-time.
+# Project Overview
+This project focuses on creating a solution to help the visually impaired navigate with the help of GPS, camera module, ESP32, LiDAR and Jetson Nano. A VQAS
+(Visual Question Answer System) based on GPT-2 is deployed on the Jetson nano which can provide a scene description based on user prompt. This allows
+visually impaired individuals to navigate to a desired location by providing a description of the environment. The LiDAR is used to detect obstacles
+and alert the user. An IMU detects fall and sends an SOS to an emergency contact. This end to end solution aims to make a visually impaired person
+more independent and self-sufficient.
 
-      Features:
-      • Real-time data collection and upload
-      • Web dashboard with live charts
-      • Power-efficient design for solar-powered operation
+## Technical Stack
+- Jetson Nano
+- ESP32
+- LiDAR
+- VQAS (Transformer Networks)
+- IMU
 
-      Technologies Used:
-      • ESP32 (ESP-IDF)
-      • InfluxDB + Grafana
-      • MQTT over WiFi
-      • Docker (for dashboard hosting)
-    `,
+## Project Team
+- R Charan Bhardhwaj
+- Adithya Venkata Narayanan
+- Shyaam Pon Sundar
+- Rigved Sanku
+- Vakula Venkatesh
+- Rahul Raaghav
+
+## Notable Achievements
+- Winner of SIH 2022, Government of India`,
     images: [
       {
         url: '/Portfolio/assets/ANVI/Flowchart.webp',
@@ -161,28 +217,24 @@ Successfully built an end-to-end robotic grasping pipeline from perception to ph
     id: 'project5',
     title: 'AgriBot E-Yantra Robotics Competition \'21-\'22',
     description: `
-      A weather station built using ESP32 and various environmental sensors. The device collects temperature, humidity, and air pressure data and sends it to a cloud dashboard in real-time.
+# Project Overview
+This project is part of the E-Yantra Robotics Competition (EYRC) for the year 2021-2022. The objective of the project is to develop an algorithm 
+for a robot to autonomously tranverse the arena and detect ripe fruits using OpenCV using thresholding techniques. Once the fruits are detected, 
+MoveIt! package is used to perform a pick and place motion. The robot is equipped with an IntelRealSense camera to detect fruits and perform obstacle 
+avoidance.
 
-      Features:
-      • Real-time data collection and upload
-      • Web dashboard with live charts
-      • Power-efficient design for solar-powered operation
+## Technical Stack
+- ROS Noetic
+- OpenCV
+- Python
 
-      Technologies Used:
-      • ESP32 (ESP-IDF)
-      • InfluxDB + Grafana
-      • MQTT over WiFi
-      • Docker (for dashboard hosting)
-    `,
+## Project Team
+- R Charan Bhardhwaj
+- Krishna Kishore
+- Sunkara Vikash
+- Mukilan`,
     images: [
-      // {
-      //   url: 'https://images.unsplash.com/photo-1562059390-a761a084768e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80',
-      //   caption: 'Device Deployed in Field'
-      // },
-      // {
-      //   url: 'https://images.unsplash.com/photo-1603781566382-1a53ed6fc2b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80',
-      //   caption: 'Web Dashboard - Real-time Data'
-      // }
+
     ],
     github: 'https://github.com/yourusername/weather-station',
     youtube: 'https://youtube.com/watch?v=weatherdemo'
