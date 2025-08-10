@@ -252,12 +252,12 @@ function ProjectDetail() {
 
   if (!project) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Project not found</h1>
           <button
             onClick={() => navigate('/')}
-            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
+            className="inline-flex items-center px-4 py-2 rounded-md shadow-sm text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800"
           >
             <Home className="w-4 h-4 mr-2" />
             Go Home
@@ -268,26 +268,27 @@ function ProjectDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white">
       {/* Navigation */}
-      <nav className="bg-white shadow-md">
+      <nav className="bg-white dark:bg-gray-800 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <button
               onClick={() => navigate('/')}
-              className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-gray-700 hover:text-blue-600"
+              className="inline-flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-white"
             >
-              <Home className="w-5 h-5 mr-1" />
-              Home
+              <ArrowLeft className="w-5 h-5 mr-1" />
+              Back
             </button>
           </div>
         </div>
       </nav>
 
+      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Title Section */}
+        {/* Title */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">{project.title}</h1>
+          <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
         </div>
 
         {/* Image Gallery */}
@@ -302,34 +303,35 @@ function ProjectDetail() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <p className="mt-2 text-sm text-gray-600 text-center">{image.caption}</p>
+                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 text-center transition-colors">
+                  {image.caption}
+                </p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Description */}
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-12">
+        <div className="bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100 rounded-lg shadow-lg p-8 mb-12">
           <div className="prose max-w-none">
             <ReactMarkdown
               components={{
-                p: ({ children }) => <p className="mb-4 text-gray-700">{children}</p>,
-                strong: ({ children }) => <strong className="font-bold text-gray-900">{children}</strong>,
+                p: ({ children }) => <p className="mb-4">{children}</p>,
+                strong: ({ children }) => <strong className="font-bold">{children}</strong>,
                 em: ({ children }) => <em className="italic">{children}</em>,
-                ul: ({ children }) => <ul className="list-disc pl-6 mb-4 text-gray-700">{children}</ul>,
-                ol: ({ children }) => <ol className="list-decimal pl-6 mb-4 text-gray-700">{children}</ol>,
+                ul: ({ children }) => <ul className="list-disc pl-6 mb-4">{children}</ul>,
+                ol: ({ children }) => <ol className="list-decimal pl-6 mb-4">{children}</ol>,
                 li: ({ children }) => <li className="mb-1">{children}</li>,
-                h1: ({ children }) => <h1 className="text-2xl font-bold mb-4 mt-6 text-gray-900">{children}</h1>,
-                h2: ({ children }) => <h2 className="text-xl font-bold mb-3 mt-5 text-gray-900">{children}</h2>,
-                h3: ({ children }) => <h3 className="text-lg font-semibold mb-2 mt-4 text-gray-800">{children}</h3>,
-                h4: ({ children }) => <h4 className="text-base font-semibold mb-2 mt-3 text-gray-800">{children}</h4>,
-                // Add this link component:
+                h1: ({ children }) => <h1 className="text-2xl font-bold mb-4 mt-6">{children}</h1>,
+                h2: ({ children }) => <h2 className="text-xl font-bold mb-3 mt-5">{children}</h2>,
+                h3: ({ children }) => <h3 className="text-lg font-semibold mb-2 mt-4">{children}</h3>,
+                h4: ({ children }) => <h4 className="text-base font-semibold mb-2 mt-3">{children}</h4>,
                 a: ({ href, children }) => (
                   <a
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 underline hover:text-blue-800 transition-colors duration-200"
+                    className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline transition-colors duration-200"
                   >
                     {children}
                   </a>

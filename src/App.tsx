@@ -227,30 +227,30 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsMenuOpen(true)}
-        className="fixed top-4 left-4 z-50 p-2 rounded-lg bg-white shadow-md md:hidden"
+        className="fixed top-4 left-4 z-50 p-2 rounded-lg bg-white dark:bg-gray-800 shadow-md md:hidden transition-colors"
       >
-        <Menu className="w-6 h-6 text-gray-700" />
+        <Menu className="w-6 h-6 text-gray-700 dark:text-gray-300" />
       </button>
 
       {/* Mobile Navigation Sidebar */}
-      <div className={`fixed inset-y-0 left-0 transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} w-64 bg-white shadow-lg transition-transform duration-300 ease-in-out z-50 md:hidden`}>
+      <div className={`fixed inset-y-0 left-0 transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} w-64 bg-white dark:bg-gray-800 shadow-lg transition-all duration-300 ease-in-out z-50 md:hidden`}>
         <div className="p-6">
           <button
             onClick={() => setIsMenuOpen(false)}
-            className="absolute top-4 right-4 p-2 rounded-lg hover:bg-gray-100"
+            className="absolute top-4 right-4 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
           >
-            <X className="w-6 h-6 text-gray-700" />
+            <X className="w-6 h-6 text-gray-700 dark:text-gray-300" />
           </button>
           <div className="mt-8 space-y-4">
             {['home', 'experience & education', 'projects', 'skills', 'affiliations', 'hobbies', 'contact'].map((section) => (
               <button
                 key={section}
                 onClick={() => scrollToSection(section)}
-                className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg capitalize"
+                className="block w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg capitalize transition-colors"
               >
                 {section}
               </button>
@@ -260,7 +260,7 @@ function App() {
       </div>
 
       {/* Desktop Navigation */}
-      <nav className="fixed top-0 left-0 right-0 bg-white shadow-md z-40 hidden md:block">
+      <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-md z-40 hidden md:block transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex space-x-8">
@@ -268,15 +268,25 @@ function App() {
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
-                  className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 capitalize hover:text-blue-600"
+                  className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 dark:text-gray-100 capitalize hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   {section}
                 </button>
               ))}
             </div>
+            <div className="flex items-center">
+              <div className="block">
+                <DarkModeToggle />
+              </div>
+            </div>
           </div>
         </div>
       </nav>
+      <div className="md:hidden fixed bottom-4 right-4 z-50">
+        <div className="bg-white dark:bg-gray-800 rounded-full p-2 shadow-lg">
+          <DarkModeToggle />
+        </div>
+      </div>
 
       {/* Main Content */}
       <div className="pt-16">
@@ -286,14 +296,14 @@ function App() {
           className="relative bg-cover bg-center min-h-[calc(100vh-4rem)] flex items-center"
           style={{ backgroundImage: "url('/Portfolio/assets/Homepage/Background.png')" }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50 dark:from-black/80 dark:to-black/60"></div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
             <div className="flex flex-col md:flex-row items-center justify-between">
               <div className="md:w-1/2 space-y-6">
                 <h1 className="text-5xl font-bold text-white text-center md:text-left">
                   {PERSONAL_INFO.name}
                 </h1>
-                <p className="text-xl text-gray-200 leading-relaxed">
+                <p className="text-xl text-gray-200 dark:text-gray-300 leading-relaxed">
                   {PERSONAL_INFO.about}
                 </p>
                 <div className="flex space-x-4">
@@ -301,7 +311,7 @@ function App() {
                     href={PERSONAL_INFO.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-white hover:text-blue-300 flex items-center"
+                    className="text-white hover:text-blue-300 dark:hover:text-blue-400 flex items-center transition-colors"
                   >
                     <Linkedin className="w-5 h-5 mr-2" />
                     LinkedIn
@@ -310,7 +320,7 @@ function App() {
                     href="https://drive.google.com/file/d/1bwJzd-vFea0b1D6AThBjXqKVGcbwfeiJ/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-white hover:text-blue-300 flex items-center"
+                    className="text-white hover:text-blue-300 dark:hover:text-blue-400 flex items-center transition-colors"
                   >
                     <ExternalLink className="w-5 h-5 mr-2" />
                     Resume
@@ -319,7 +329,7 @@ function App() {
                     href="https://github.com/R-Charan"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-white hover:text-blue-300 flex items-center"
+                    className="text-white hover:text-blue-300 dark:hover:text-blue-400 flex items-center transition-colors"
                   >
                     <Github className="w-5 h-5 mr-2" />
                     Github
@@ -332,35 +342,36 @@ function App() {
                   <img
                     src={PERSONAL_INFO.photo}
                     alt={PERSONAL_INFO.name}
-                    className="relative rounded-full w-64 h-64 object-cover object-[center_0%] shadow-lg border-4 border-white"
+                    className="relative rounded-full w-64 h-64 object-cover object-[center_0%] shadow-lg border-4 border-white dark:border-gray-300"
                   />
                 </div>
               </div>
             </div>
           </div>
         </section>
+
         {/* Experience & Education Section */}
-        <section id="experience & education" className="bg-gray-50 py-16">
+        <section id="experience & education" className="bg-gray-50 dark:bg-gray-800 py-16 transition-colors">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Work Experience & Education</h2>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-12 transition-colors">Work Experience & Education</h2>
 
             <div className="grid md:grid-cols-2 gap-8">
               {/* Work Experience Column */}
               <div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6 flex items-center transition-colors">
                   <Briefcase className="w-6 h-6 mr-2" />
                   Work Experience
                 </h3>
                 <div className="space-y-6">
                   {WORK_EXPERIENCE.map((job, index) => (
-                    <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-                      <h4 className="text-lg font-semibold text-gray-900">{job.title}</h4>
-                      <p className="text-blue-600 font-medium">{job.company}</p>
-                      <p className="text-sm text-gray-500 mb-2">{job.duration}</p>
-                      <p className="text-gray-700">{job.description}</p>
+                    <div key={index} className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md transition-colors">
+                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white transition-colors">{job.title}</h4>
+                      <p className="text-blue-600 dark:text-blue-400 font-medium transition-colors">{job.company}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mb-2 transition-colors">{job.duration}</p>
+                      <p className="text-gray-700 dark:text-gray-300 transition-colors">{job.description}</p>
                       {job.skills && (
                         <div className="mt-3">
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-gray-600 dark:text-gray-400 transition-colors">
                             <span className="font-medium">Skills:</span> {job.skills}
                           </p>
                         </div>
@@ -372,21 +383,21 @@ function App() {
 
               {/* Education Column */}
               <div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6 flex items-center transition-colors">
                   <GraduationCap className="w-6 h-6 mr-2" />
                   Education
                 </h3>
                 <div className="space-y-6">
                   {EDUCATION.map((edu, index) => (
-                    <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-                      <h4 className="text-lg font-semibold text-gray-900">{edu.degree}</h4>
-                      <p className="text-blue-600 font-medium">{edu.institution}</p>
-                      <p className="text-sm text-gray-500 mb-2">{edu.duration}</p>
-                      <p className="text-sm text-gray-500 mb-2">{edu.description}</p>
-                      {edu.gpa && <p className="text-gray-700">GPA: {edu.gpa}</p>}
+                    <div key={index} className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md transition-colors">
+                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white transition-colors">{edu.degree}</h4>
+                      <p className="text-blue-600 dark:text-blue-400 font-medium transition-colors">{edu.institution}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mb-2 transition-colors">{edu.duration}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mb-2 transition-colors">{edu.description}</p>
+                      {edu.gpa && <p className="text-gray-700 dark:text-gray-300 transition-colors">GPA: {edu.gpa}</p>}
                       {edu.coursework && (
                         <div className="mt-3">
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-gray-600 dark:text-gray-400 transition-colors">
                             <span className="font-medium">Relevant Coursework:</span> {edu.coursework}
                           </p>
                         </div>
@@ -398,16 +409,17 @@ function App() {
             </div>
           </div>
         </section>
+
         {/* Projects Section */}
-        <section id="projects" className="bg-white py-16">
+        <section id="projects" className="bg-white dark:bg-gray-900 py-16 transition-colors">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Projects</h2>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-8 transition-colors">Projects</h2>
             <div className="relative">
               <button
                 onClick={() => scrollProjects('left')}
-                className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-6 bg-white rounded-full p-2 shadow-lg z-10 hover:bg-gray-50"
+                className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-6 bg-white dark:bg-gray-700 rounded-full p-2 shadow-lg z-10 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
               >
-                <ChevronLeft className="w-6 h-6 text-gray-600" />
+                <ChevronLeft className="w-6 h-6 text-gray-600 dark:text-gray-300" />
               </button>
               <div
                 ref={projectsContainerRef}
@@ -417,7 +429,7 @@ function App() {
                   {PROJECTS.map((project) => (
                     <div
                       key={project.id}
-                      className="w-[400px] flex-none bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl"
+                      className="w-[400px] flex-none bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl dark:hover:shadow-2xl"
                     >
                       <img
                         src={project.image}
@@ -427,14 +439,13 @@ function App() {
                       <div className="p-6">
                         <button
                           onClick={() => navigate(`/projects/${project.id}`)}
-                          className="block text-xl font-semibold text-gray-900 hover:text-blue-600 transition duration-300"
+                          className="block text-xl font-semibold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition duration-300"
                         >
                           {project.title}
                         </button>
-                        <p className="mt-2 text-gray-500 line-clamp-3">{project.description}</p>
+                        <p className="mt-2 text-gray-500 dark:text-gray-400 line-clamp-3 transition-colors">{project.description}</p>
 
-                        {/* New Skills Line */}
-                        <p className="mt-2 text-sm text-gray-700 font-medium">
+                        <p className="mt-2 text-sm text-gray-700 dark:text-gray-300 font-medium transition-colors">
                           Skills/Concepts: {project.skills}
                         </p>
 
@@ -442,7 +453,7 @@ function App() {
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="mt-4 inline-flex items-center text-blue-600 hover:text-blue-800"
+                          className="mt-4 inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
                         >
                           <Github className="w-5 h-5 mr-2" />
                           View on GitHub
@@ -454,29 +465,29 @@ function App() {
               </div>
               <button
                 onClick={() => scrollProjects('right')}
-                className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-white rounded-full p-2 shadow-lg z-10 hover:bg-gray-50"
+                className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-white dark:bg-gray-700 rounded-full p-2 shadow-lg z-10 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
               >
-                <ChevronRight className="w-6 h-6 text-gray-600" />
+                <ChevronRight className="w-6 h-6 text-gray-600 dark:text-gray-300" />
               </button>
             </div>
           </div>
         </section>
 
         {/* Skills Section */}
-        <section id="skills" className="bg-gray-50 py-16">
+        <section id="skills" className="bg-gray-50 dark:bg-gray-800 py-16 transition-colors">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Skills & Expertise</h2>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-8 transition-colors">Skills & Expertise</h2>
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
               {Object.entries(SKILLS).map(([category, skills]) => (
-                <div key={category} className="bg-white rounded-xl p-6 shadow-lg">
-                  <h3 className="text-2xl font-semibold text-gray-800 mb-6 pb-3 border-b border-gray-200">
+                <div key={category} className="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg transition-colors">
+                  <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-6 pb-3 border-b border-gray-200 dark:border-gray-600 transition-colors">
                     {category}
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {skills.map((skill, index) => (
-                      <div key={index} className="flex items-center space-x-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors duration-200">
+                      <div key={index} className="flex items-center space-x-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-600 hover:bg-gray-100 dark:hover:bg-gray-500 transition-colors duration-200">
                         <img src={skill.icon} alt={skill.name} className="w-8 h-8" />
-                        <span className="text-lg text-gray-700">{skill.name}</span>
+                        <span className="text-lg text-gray-700 dark:text-gray-300 transition-colors">{skill.name}</span>
                       </div>
                     ))}
                   </div>
@@ -486,63 +497,16 @@ function App() {
           </div>
         </section>
 
-{/* Affiliations Section */}
-{/* Affiliations Section */}
-<section id="affiliations" className="bg-white py-16">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Affiliations</h2>
-    <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      {AFFILIATIONS.map((affiliation, index) => (
-        <div
-          key={index}
-          className="group relative bg-white rounded-lg shadow-lg p-6 cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl overflow-hidden"
-        >
-          {/* Main Content */}
-          <div className="relative z-10 transition-all duration-300 group-hover:opacity-0">
-            <div className="flex items-center mb-4">
-              <img
-                src={affiliation.logo}
-                alt={affiliation.organization}
-                className="w-12 h-12 object-cover rounded-lg mr-4 transition-transform duration-300 group-hover:scale-110"
-              />
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900">{affiliation.organization}</h3>
-                <p className="text-gray-600">{affiliation.role}</p>
-              </div>
-            </div>
-            <div className="flex items-center text-gray-500">
-              <Calendar className="w-4 h-4 mr-2" />
-              <span>{affiliation.period}</span>
-            </div>
-          </div>
-
-          {/* Hover Overlay with Description */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-700 p-6 flex flex-col justify-center items-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-full group-hover:translate-y-0">
-            <div className="text-center">
-              <p className="text-sm leading-relaxed text-white/90">{affiliation.description}</p>
-              <div className="flex items-center justify-center text-blue-100 mt-4">
-                <Calendar className="w-4 h-4 mr-2" />
-                <span className="text-sm">{affiliation.period}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Subtle border animation */}
-          <div className="absolute inset-0 rounded-lg border-2 border-transparent group-hover:border-blue-300/50 transition-all duration-300"></div>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
+        <AffiliationsSection AFFILIATIONS={AFFILIATIONS} />
 
         {/* Hobbies Section */}
-        <section id="hobbies" className="bg-gray-50 py-16">
+        <section id="hobbies" className="bg-gray-50 dark:bg-gray-800 py-16 transition-colors">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Hobbies</h2>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-8 transition-colors">Hobbies</h2>
             <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {HOBBIES.map((hobby, index) => (
-                <div key={index} className="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow duration-200">
-                  <span className="text-lg text-gray-700 font-medium">{hobby}</span>
+                <div key={index} className="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 text-center hover:shadow-lg dark:hover:shadow-gray-900/20 transition-all duration-200">
+                  <span className="text-lg text-gray-700 dark:text-gray-300 font-medium transition-colors">{hobby}</span>
                 </div>
               ))}
             </div>
@@ -550,17 +514,17 @@ function App() {
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="bg-white py-16">
+        <section id="contact" className="bg-white dark:bg-gray-900 py-16 transition-colors">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Get In Touch</h2>
-            <div className="bg-gray-50 rounded-lg p-8 text-center">
-              <p className="text-gray-600 mb-6">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-8 transition-colors">Get In Touch</h2>
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-8 text-center transition-colors">
+              <p className="text-gray-600 dark:text-gray-400 mb-6 transition-colors">
                 Interested in discussing about anything or exploring collaboration opportunities?
               </p>
               <div className="flex justify-center">
                 <a
                   href={`mailto:${PERSONAL_INFO.email}`}
-                  className="inline-flex items-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                  className="inline-flex items-center space-x-2 bg-blue-600 dark:bg-blue-700 text-white px-6 py-3 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors"
                 >
                   <Mail className="w-5 h-5" />
                   <span>Send Email</span>
