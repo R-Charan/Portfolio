@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Award, ChevronLeft, ChevronRight, Menu, X, Calendar } from 'lucide-react';
+import { Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Award, ChevronLeft, ChevronRight, Menu, X, Calendar, Briefcase, GraduationCap, Githu } from 'lucide-react';
 
 // Replace these with your actual information
 const PERSONAL_INFO = {
@@ -153,26 +153,52 @@ const AFFILIATIONS = [
     organization: "Robotics and Machine Intelligence Club",
     role: "Vice - President",
     period: "2023 - 2024",
-    logo: "/Portfolio/assets/Homepage/RMI.png"
+    logo: "/Portfolio/assets/Homepage/RMI.png",
+    description: "Led a team of 30+ members in organizing workshops, competitions, and research projects. Managed the club's internal affairs and ensured timely delivery of projects."
   },
-  {
-    organization: "Chess Team, NITT",
-    role: "Member",
-    period: "2023 - 2024",
-    logo: "/Portfolio/assets/Homepage/NITT.png"
-  },
+  // {
+  //   organization: "Chess Team, NITT",
+  //   role: "Member",
+  //   period: "2023 - 2024",
+  //   logo: "/Portfolio/assets/Homepage/NITT.png",
+  //   description: "Represented the institute in inter-collegiate chess tournaments. Achieved consistent top rankings and contributed to team strategy development and training sessions."
+  // },
   {
     organization: "Synergy, Mechanical Department Symposium",
     role: "Workshop Coordinator",
     period: "2021 - 2022",
-    logo: "/Portfolio/assets/Homepage/Synergy.avif"
+    logo: "/Portfolio/assets/Homepage/Synergy.avif",
+    description: "Coordinated and organized workshops for students during the Mechanical Department Symposium."
   },
   {
     organization: "Ignitte, NITT",
     role: "Student Mentor",
     period: "2021 - 2022",
-    logo: "/Portfolio/assets/Homepage/Ignitte.png"
+    logo: "/Portfolio/assets/Homepage/Ignitte.png",
+    description: "Volunteered to teach chemistry for underprevileged higher secondary students during their preparation competitive exams like JEE and NEET."
   },
+];
+
+const WORK_EXPERIENCE = [
+  {
+    title: "Mechatronics Engineer",
+    company: "Thryv Mobility Pvt Ltd",
+    duration: "May 2024 - Present",
+    description: "Designing an inclusive and portable exercise platform for wheelchair and non-wheelchair users.",
+    skills: "BLDC Motors, Control Systems, PCB Design, Embedded Systems, System Modeling"
+  },
+];
+
+const EDUCATION = [
+  {
+    degree: "B.Tech in Mechanical Engineering",
+    institution: "National Institute of Technology, Tiruchirapalli",
+    duration: "Dec 2020 - May 2024",
+    description: "Vice President @ Robotics Club",
+    gpa: "8.67/10",
+    coursework: "Mechanics, Mechatronics, Industrial Robotics, Deep Learning"
+  },
+  // Add more education entries
 ];
 
 function App() {
@@ -220,7 +246,7 @@ function App() {
             <X className="w-6 h-6 text-gray-700" />
           </button>
           <div className="mt-8 space-y-4">
-            {['home', 'projects', 'skills', 'affiliations', 'hobbies', 'contact'].map((section) => (
+            {['home', 'experience & education', 'projects', 'skills', 'affiliations', 'hobbies', 'contact'].map((section) => (
               <button
                 key={section}
                 onClick={() => scrollToSection(section)}
@@ -238,7 +264,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex space-x-8">
-              {['home', 'projects', 'skills', 'affiliations', 'hobbies', 'contact'].map((section) => (
+              {['home', 'experience & education', 'projects', 'skills', 'affiliations', 'hobbies', 'contact'].map((section) => (
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
@@ -289,6 +315,15 @@ function App() {
                     <ExternalLink className="w-5 h-5 mr-2" />
                     Resume
                   </a>
+                  <a
+                    href="https://github.com/R-Charan"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white hover:text-blue-300 flex items-center"
+                  >
+                    <Github className="w-5 h-5 mr-2" />
+                    Github
+                  </a>
                 </div>
               </div>
               <div className="mt-8 md:mt-0 md:w-1/2 flex justify-center">
@@ -304,8 +339,66 @@ function App() {
             </div>
           </div>
         </section>
+        {/* Experience & Education Section */}
+        <section id="experience & education" className="bg-gray-50 py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Work Experience & Education</h2>
 
-        {/* Projects Section - Starts below the viewport */}
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Work Experience Column */}
+              <div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                  <Briefcase className="w-6 h-6 mr-2" />
+                  Work Experience
+                </h3>
+                <div className="space-y-6">
+                  {WORK_EXPERIENCE.map((job, index) => (
+                    <div key={index} className="bg-white p-6 rounded-lg shadow-md">
+                      <h4 className="text-lg font-semibold text-gray-900">{job.title}</h4>
+                      <p className="text-blue-600 font-medium">{job.company}</p>
+                      <p className="text-sm text-gray-500 mb-2">{job.duration}</p>
+                      <p className="text-gray-700">{job.description}</p>
+                      {job.skills && (
+                        <div className="mt-3">
+                          <p className="text-sm text-gray-600">
+                            <span className="font-medium">Skills:</span> {job.skills}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Education Column */}
+              <div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                  <GraduationCap className="w-6 h-6 mr-2" />
+                  Education
+                </h3>
+                <div className="space-y-6">
+                  {EDUCATION.map((edu, index) => (
+                    <div key={index} className="bg-white p-6 rounded-lg shadow-md">
+                      <h4 className="text-lg font-semibold text-gray-900">{edu.degree}</h4>
+                      <p className="text-blue-600 font-medium">{edu.institution}</p>
+                      <p className="text-sm text-gray-500 mb-2">{edu.duration}</p>
+                      <p className="text-sm text-gray-500 mb-2">{edu.description}</p>
+                      {edu.gpa && <p className="text-gray-700">GPA: {edu.gpa}</p>}
+                      {edu.coursework && (
+                        <div className="mt-3">
+                          <p className="text-sm text-gray-600">
+                            <span className="font-medium">Relevant Coursework:</span> {edu.coursework}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        {/* Projects Section */}
         <section id="projects" className="bg-white py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Projects</h2>
@@ -393,36 +486,54 @@ function App() {
           </div>
         </section>
 
-        {/* Affiliations Section */}
-        <section id="affiliations" className="bg-white py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Affiliations</h2>
-            <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {AFFILIATIONS.map((affiliation, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-lg shadow-lg p-6"
-                >
-                  <div className="flex items-center mb-4">
-                    <img
-                      src={affiliation.logo}
-                      alt={affiliation.organization}
-                      className="w-12 h-12 object-cover rounded-lg mr-4"
-                    />
-                    <div>
-                      <h3 className="text-xl font-semibold text-gray-900">{affiliation.organization}</h3>
-                      <p className="text-gray-600">{affiliation.role}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center text-gray-500">
-                    <Calendar className="w-4 h-4 mr-2" />
-                    <span>{affiliation.period}</span>
-                  </div>
-                </div>
-              ))}
+{/* Affiliations Section */}
+{/* Affiliations Section */}
+<section id="affiliations" className="bg-white py-16">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Affiliations</h2>
+    <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {AFFILIATIONS.map((affiliation, index) => (
+        <div
+          key={index}
+          className="group relative bg-white rounded-lg shadow-lg p-6 cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl overflow-hidden"
+        >
+          {/* Main Content */}
+          <div className="relative z-10 transition-all duration-300 group-hover:opacity-0">
+            <div className="flex items-center mb-4">
+              <img
+                src={affiliation.logo}
+                alt={affiliation.organization}
+                className="w-12 h-12 object-cover rounded-lg mr-4 transition-transform duration-300 group-hover:scale-110"
+              />
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900">{affiliation.organization}</h3>
+                <p className="text-gray-600">{affiliation.role}</p>
+              </div>
+            </div>
+            <div className="flex items-center text-gray-500">
+              <Calendar className="w-4 h-4 mr-2" />
+              <span>{affiliation.period}</span>
             </div>
           </div>
-        </section>
+
+          {/* Hover Overlay with Description */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-700 p-6 flex flex-col justify-center items-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-full group-hover:translate-y-0">
+            <div className="text-center">
+              <p className="text-sm leading-relaxed text-white/90">{affiliation.description}</p>
+              <div className="flex items-center justify-center text-blue-100 mt-4">
+                <Calendar className="w-4 h-4 mr-2" />
+                <span className="text-sm">{affiliation.period}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Subtle border animation */}
+          <div className="absolute inset-0 rounded-lg border-2 border-transparent group-hover:border-blue-300/50 transition-all duration-300"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 
         {/* Hobbies Section */}
         <section id="hobbies" className="bg-gray-50 py-16">
@@ -440,24 +551,24 @@ function App() {
 
         {/* Contact Section */}
         <section id="contact" className="bg-white py-16">
- <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-   <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Get In Touch</h2>
-   <div className="bg-gray-50 rounded-lg p-8 text-center">
-     <p className="text-gray-600 mb-6">
-       Interested in discussing about anything or exploring collaboration opportunities?
-     </p>
-     <div className="flex justify-center">
-       <a 
-         href={`mailto:${PERSONAL_INFO.email}`} 
-         className="inline-flex items-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
-       >
-         <Mail className="w-5 h-5" />
-         <span>Send Email</span>
-       </a>
-     </div>
-   </div>
- </div>
-</section>
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Get In Touch</h2>
+            <div className="bg-gray-50 rounded-lg p-8 text-center">
+              <p className="text-gray-600 mb-6">
+                Interested in discussing about anything or exploring collaboration opportunities?
+              </p>
+              <div className="flex justify-center">
+                <a
+                  href={`mailto:${PERSONAL_INFO.email}`}
+                  className="inline-flex items-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  <Mail className="w-5 h-5" />
+                  <span>Send Email</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
