@@ -235,9 +235,12 @@ avoidance.
 - Mukilan`,
     images: [
 
+      {
+        url: '/Portfolio/assets/AgriBot/Cover_photo.png',
+        caption: 'Simulation in Gazebo of AgriBot picking the fruit'
+      }
     ],
-    github: 'https://github.com/yourusername/weather-station',
-    youtube: 'https://youtube.com/watch?v=weatherdemo'
+    github: 'https://github.com/krishnakvs10/eyrc-2021'
   }
 } as const;
 
@@ -289,9 +292,9 @@ function ProjectDetail() {
 
         {/* Image Gallery */}
         <div className="mb-12 overflow-x-auto">
-          <div className="flex space-x-6 pb-4">
+          <div className={`flex pb-4 ${project.images.length === 1 ? 'justify-center' : 'space-x-6'}`}>
             {project.images.map((image, index) => (
-              <div key={index} className="flex-none w-96">
+              <div key={index} className={`${project.images.length === 1 ? '' : 'flex-none'} w-96`}>
                 <div className="relative h-64 rounded-lg overflow-hidden">
                   <img
                     src={image.url}
