@@ -1,6 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import DarkModeToggle from './components/DarkModeToggle';
 import { useNavigate } from 'react-router-dom';
-import { Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Award, ChevronLeft, ChevronRight, Menu, X, Calendar, Briefcase, GraduationCap, Githu } from 'lucide-react';
+import { Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Award, ChevronLeft, ChevronRight, Menu, X, Calendar, Briefcase, GraduationCap} from 'lucide-react';
+import AffiliationsSection from './components/AffiliationsSection';
 
 // Replace these with your actual information
 const PERSONAL_INFO = {
@@ -8,7 +10,7 @@ const PERSONAL_INFO = {
   title: "Robotics Engineer",
   photo: "/Portfolio/assets/Homepage/Cover Photo.jpg",
   about: "I work at the intersection of control systems, embedded design, and \
-  robotics to create assistive technologies that move with purpose and adapt to people. Whether it’s a smart gripper or a wearable exoskeleton, I care about building systems that respond, not just react.",
+  robotics to create assistive technologies that move with purpose and adapt to people. Whether it's a smart gripper or a wearable exoskeleton, I care about building systems that respond, not just react.",
   linkedin: "https://www.linkedin.com/in/r-charan-bhardhwaj",
   github: "https://github.com/R-Charan",
   email: "rcharanbhardhwaj@gmail.com",
@@ -156,13 +158,6 @@ const AFFILIATIONS = [
     logo: "/Portfolio/assets/Homepage/RMI.png",
     description: "Led a team of 30+ members in organizing workshops, competitions, and research projects. Managed the club's internal affairs and ensured timely delivery of projects."
   },
-  // {
-  //   organization: "Chess Team, NITT",
-  //   role: "Member",
-  //   period: "2023 - 2024",
-  //   logo: "/Portfolio/assets/Homepage/NITT.png",
-  //   description: "Represented the institute in inter-collegiate chess tournaments. Achieved consistent top rankings and contributed to team strategy development and training sessions."
-  // },
   {
     organization: "Synergy, Mechanical Department Symposium",
     role: "Workshop Coordinator",
@@ -198,7 +193,6 @@ const EDUCATION = [
     gpa: "8.67/10",
     coursework: "Mechanics, Mechatronics, Industrial Robotics, Deep Learning"
   },
-  // Add more education entries
 ];
 
 function App() {
