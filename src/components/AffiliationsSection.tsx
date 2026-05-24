@@ -1,34 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { MouseEvent as ReactMouseEvent, useState, useEffect, useRef } from 'react';
 import { Calendar } from 'lucide-react';
 
-const AFFILIATIONS = [
-  {
-    organization: "Robotics and Machine Intelligence Club",
-    role: "Vice - President",
-    period: "2023 - 2024",
-    logo: "/Portfolio/assets/Homepage/RMI.png",
-    description:
-      "Led a team of 30+ members in organizing workshops, competitions, and research projects. Managed the club's internal affairs and ensured timely delivery of projects.",
-  },
-  {
-    organization: "Synergy, Mechanical Department Symposium",
-    role: "Workshop Coordinator",
-    period: "2021 - 2022",
-    logo: "/Portfolio/assets/Homepage/Synergy.avif",
-    description:
-      "Coordinated and organized workshops for students during the Mechanical Department Symposium.",
-  },
-  {
-    organization: "Ignitte, NITT",
-    role: "Student Mentor",
-    period: "2021 - 2022",
-    logo: "/Portfolio/assets/Homepage/Ignitte.png",
-    description:
-      "Volunteered to teach chemistry for underprivileged higher secondary students during their preparation for competitive exams like JEE and NEET.",
-  },
-];
+export interface Affiliation {
+  organization: string;
+  role: string;
+  period: string;
+  logo: string;
+  description: string;
+}
 
-const AffiliationsSection = () => {
+interface AffiliationsSectionProps {
+  affiliations: Affiliation[];
+}
+
+const AffiliationsSection = ({ affiliations }: AffiliationsSectionProps) => {
   const [activeCard, setActiveCard] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -43,7 +28,7 @@ const AffiliationsSection = () => {
 
   // Close active card when clicking outside it (mobile only)
   useEffect(() => {
-    const handleOutsideClick = (e: MouseEvent) => {
+    const handleOutsideClick = (e: globalThis.MouseEvent) => {
       if (!isMobile || activeCard === null) return;
       const clickedInside = cardRefs.current[activeCard]?.contains(e.target as Node);
       if (!clickedInside) setActiveCard(null);
@@ -52,25 +37,26 @@ const AffiliationsSection = () => {
     return () => document.removeEventListener('click', handleOutsideClick);
   }, [isMobile, activeCard]);
 
-  const handleCardClick = (index: number, e: React.MouseEvent) => {
+  const handleCardClick = (index: number, e: ReactMouseEvent) => {
     if (!isMobile) return;
     e.stopPropagation();
     setActiveCard(activeCard === index ? null : index);
   };
 
   return (
-<section id="affiliations" className="bg-white dark:bg-gray-900 py-16 transition-colors">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-8 transition-colors antialiased [font-variant-ligatures:none]">
-      Affiliations
-    </h2>
+    <section id="affiliations" className="bg-white py-20 transition-colors dark:bg-slate-950">
+      <div className="section-shell">
+        <div className="mb-10 text-center">
+          <p className="section-kicker">Leadership</p>
+          <h2 className="section-title">Affiliations</h2>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {AFFILIATIONS.map((affiliation, index) => (
+          {affiliations.map((affiliation, index) => (
             <div
               key={index}
               ref={(el) => (cardRefs.current[index] = el)}
-              className="group relative bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-900/20 p-6 cursor-pointer transition-all duration-300 border dark:border-gray-700 overflow-hidden"
+              className="group relative min-h-56 overflow-hidden rounded-lg border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900 dark:shadow-slate-950/20"
               onClick={(e) => handleCardClick(index, e)}
             >
               {/* Main Content */}
@@ -84,11 +70,16 @@ const AffiliationsSection = () => {
                 }`}
               >
                 <div className="flex items-center mb-4">
-                  <img
-                    src={affiliation.logo}
-                    alt={affiliation.organization}
-                    className="w-12 h-12 object-cover rounded-lg mr-4 transition-transform duration-300 group-hover:scale-110"
-                  />
+                  <span className="mr-4 flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white p-2 shadow-sm transition-transform duration-300 group-hover:scale-105">
+                    <img
+                      src={affiliation.logo}
+                      alt={affiliation.organization}
+                      loading="lazy"
+                      width={48}
+                      height={48}
+                      className="h-full w-full object-contain"
+                    />
+                  </span>
                   <div className="flex-1 min-w-0">
                     <h3 className="text-lg md:text-xl font-semibold text-gray-900 dark:text-white">
                       {affiliation.organization}
@@ -106,7 +97,7 @@ const AffiliationsSection = () => {
 
               {/* Overlay */}
               <div
-                className={`absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-700 dark:from-blue-700 dark:to-purple-800 p-6 flex flex-col justify-center items-center text-white transition-all duration-300 ${
+                className={`absolute inset-0 bg-slate-950 p-6 flex flex-col justify-center items-center text-white transition-all duration-300 dark:bg-cyan-950 ${
                   isMobile
                     ? activeCard === index
                       ? 'opacity-100 translate-y-0'

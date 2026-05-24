@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-950 antialiased dark:bg-slate-950 dark:text-slate-100;
+  }
+}
+
+@layer components {
+  .section-shell {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-kicker {
+    @apply text-sm font-semibold uppercase tracking-[0.18em] text-cyan-700 dark:text-cyan-300;
+  }
+
+  .section-title {
+    @apply mt-2 text-3xl font-bold text-slate-950 dark:text-white sm:text-4xl;
+  }
+
+  .surface-card {
+    @apply rounded-lg border border-slate-200 bg-white shadow-sm transition-colors dark:border-slate-800 dark:bg-slate-900;
+  }
+
+  .hide-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

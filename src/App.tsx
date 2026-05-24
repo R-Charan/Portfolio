@@ -1,8 +1,51 @@
-import React, { useRef, useState, useEffect } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import DarkModeToggle from './components/DarkModeToggle';
 import { useNavigate } from 'react-router-dom';
-import { Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Award, ChevronLeft, ChevronRight, Menu, X, Calendar, Briefcase, GraduationCap} from 'lucide-react';
-import AffiliationsSection from './components/AffiliationsSection';
+import { Github, Linkedin, Mail, Phone, MapPin, ExternalLink, ChevronLeft, ChevronRight, Menu, X, Briefcase, GraduationCap } from 'lucide-react';
+import AffiliationsSection, { Affiliation } from './components/AffiliationsSection';
+
+interface Project {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  github: string;
+  skills: string;
+}
+
+interface Skill {
+  name: string;
+  icon: string;
+}
+
+interface CareerItem {
+  title?: string;
+  company?: string;
+  degree?: string;
+  institution?: string;
+  duration: string;
+  description: string;
+  skills?: string;
+  gpa?: string;
+  coursework?: string;
+}
+
+const NAV_ITEMS = [
+  { id: 'home', label: 'Home' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'affiliations', label: 'Affiliations' },
+  { id: 'hobbies', label: 'Hobbies' },
+  { id: 'contact', label: 'Contact' },
+];
+
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mojbnvlv';
+const HOME_SCROLL_STORAGE_KEY = 'portfolio-home-scroll-y';
+
+const saveHomeScrollPosition = () => {
+  sessionStorage.setItem(HOME_SCROLL_STORAGE_KEY, String(window.scrollY));
+};
 
 // Replace these with your actual information
 const PERSONAL_INFO = {
@@ -18,12 +61,12 @@ const PERSONAL_INFO = {
   location: "Chennai, India"
 };
 
-const PROJECTS = [
+const PROJECTS: Project[] = [
   {
     id: "project1",
     title: "Grasp Planning",
     description: "Grasp Planning Executed on a Robotiq 3 Finger Underactuated Gripper mounted a UR5e Cobot to pick and place objects.",
-    image: "/Portfolio/assets/Grasp_Planning/Grasp_Planning_Cover.png",
+    image: "/Portfolio/assets/Grasp_Planning/Grasp_Planning_Cover.webp",
     github: "https://github.com/R-Charan/Grasp_Planning",
     skills: "ROS Noetic, Python, C++, Grasp Kinematics"
   },
@@ -31,7 +74,7 @@ const PROJECTS = [
     id: "project2",
     title: "Gait Control of Lower Limb Exoskeleton",
     description: "Control the gait of a lower limb exoskeleton to facilitate better gait patterns for people with weaker lower body strength",
-    image: "/Portfolio/assets/Project_Auxilium/Full_Setup.png",
+    image: "/Portfolio/assets/Project_Auxilium/Full_Setup.webp",
     github: "https://github.com/R-Charan/Project_Auxilium",
     skills: "Embedded Systems, SolidWorks, MATLAB"
   },
@@ -55,13 +98,13 @@ const PROJECTS = [
     id: "project5",
     title: "AgriBot",
     description: "Developed an algorithm for a robot to autonomously transverse the arena and detect ripe fruits using OpenCV using thresholding techniques.",
-    image: "/Portfolio/assets/AgriBot/Cover_photo.png",
+    image: "/Portfolio/assets/AgriBot/Cover_photo.webp",
     github: "https://github.com/krishnakvs10/eyrc-2021",
     skills: "ROS Noetic, OpenCV, Python"
   }
 ];
 
-const SKILLS = {
+const SKILLS: Record<string, Skill[]> = {
   "Programming Languages": [
     {
       name: "Embedded C",
@@ -150,7 +193,7 @@ const HOBBIES = [
   "Badminton"
 ];
 
-const AFFILIATIONS = [
+const AFFILIATIONS: Affiliation[] = [
   {
     organization: "Robotics and Machine Intelligence Club",
     role: "Vice - President",
@@ -174,7 +217,7 @@ const AFFILIATIONS = [
   },
 ];
 
-const WORK_EXPERIENCE = [
+const WORK_EXPERIENCE: CareerItem[] = [
   {
     title: "Mechatronics Engineer",
     company: "Thryv Mobility Pvt Ltd",
@@ -184,7 +227,7 @@ const WORK_EXPERIENCE = [
   },
 ];
 
-const EDUCATION = [
+const EDUCATION: CareerItem[] = [
   {
     degree: "B.Tech in Mechanical Engineering",
     institution: "National Institute of Technology, Tiruchirapalli",
@@ -199,6 +242,12 @@ function App() {
   const navigate = useNavigate();
   const projectsContainerRef = useRef<HTMLDivElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [contactForm, setContactForm] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+  const [contactStatus, setContactStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -220,314 +269,450 @@ function App() {
     }
   };
 
+  const handleContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setContactStatus('sending');
+
+    const subject = `${contactForm.name || 'Portfolio Contact'} - WEBSITE`;
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: contactForm.name,
+          email: contactForm.email,
+          message: contactForm.message,
+          _replyto: contactForm.email,
+          _subject: subject,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Form submission failed');
+      }
+
+      setContactForm({ name: '', email: '', message: '' });
+      setContactStatus('sent');
+    } catch {
+      setContactStatus('error');
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-      {/* Mobile Menu Button */}
+    <div className="min-h-screen bg-slate-50 transition-colors duration-300 dark:bg-slate-950">
       <button
         onClick={() => setIsMenuOpen(true)}
-        className="fixed top-4 left-4 z-50 p-2 rounded-lg bg-white dark:bg-gray-800 shadow-md md:hidden transition-colors"
+        className="fixed left-4 top-4 z-50 rounded-lg border border-slate-200 bg-white/95 p-2 shadow-md backdrop-blur md:hidden dark:border-slate-800 dark:bg-slate-900/95"
+        aria-label="Open navigation"
       >
-        <Menu className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+        <Menu className="h-6 w-6 text-slate-700 dark:text-slate-200" />
       </button>
 
-      {/* Mobile Navigation Sidebar */}
-      <div className={`fixed inset-y-0 left-0 transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} w-64 bg-white dark:bg-gray-800 shadow-lg transition-all duration-300 ease-in-out z-50 md:hidden`}>
+      <div className={`fixed inset-y-0 left-0 z-50 w-72 transform border-r border-slate-200 bg-white shadow-xl transition-transform duration-300 ease-in-out md:hidden dark:border-slate-800 dark:bg-slate-900 ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="p-6">
           <button
             onClick={() => setIsMenuOpen(false)}
-            className="absolute top-4 right-4 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            className="absolute right-4 top-4 rounded-lg p-2 transition-colors hover:bg-slate-100 dark:hover:bg-slate-800"
+            aria-label="Close navigation"
           >
-            <X className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+            <X className="h-6 w-6 text-slate-700 dark:text-slate-200" />
           </button>
-          <div className="mt-8 space-y-4">
-            {['home', 'experience & education', 'projects', 'skills', 'affiliations', 'hobbies', 'contact'].map((section) => (
+          <div className="mt-10 space-y-2">
+            {NAV_ITEMS.map((item) => (
               <button
-                key={section}
-                onClick={() => scrollToSection(section)}
-                className="block w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg capitalize transition-colors"
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className="block w-full rounded-lg px-4 py-3 text-left text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
               >
-                {section}
+                {item.label}
               </button>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Desktop Navigation */}
-      <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-md z-40 hidden md:block transition-colors">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex space-x-8">
-              {['home', 'experience & education', 'projects', 'skills', 'affiliations', 'hobbies', 'contact'].map((section) => (
-                <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 dark:text-gray-100 capitalize hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                >
-                  {section}
-                </button>
-              ))}
-            </div>
-            <div className="flex items-center">
-              <div className="block">
-                <DarkModeToggle />
+      <nav className="fixed left-0 right-0 top-0 z-40 hidden border-b border-slate-200 bg-white/90 backdrop-blur md:block dark:border-slate-800 dark:bg-slate-950/85">
+        <div className="section-shell">
+          <div className="flex h-16 items-center justify-between">
+            <button
+              onClick={() => scrollToSection('home')}
+              className="text-sm font-semibold text-slate-950 dark:text-white"
+            >
+              {PERSONAL_INFO.name}
+            </button>
+            <div className="flex items-center gap-6">
+              <div className="flex gap-5">
+                {NAV_ITEMS.slice(1).map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className="text-sm font-medium text-slate-600 transition-colors hover:text-cyan-700 dark:text-slate-300 dark:hover:text-cyan-300"
+                  >
+                    {item.label}
+                  </button>
+                ))}
               </div>
+              <DarkModeToggle />
             </div>
           </div>
         </div>
       </nav>
-      <div className="md:hidden fixed bottom-4 right-4 z-50">
-        <div className="bg-white dark:bg-gray-800 rounded-full p-2 shadow-lg">
-          <DarkModeToggle />
-        </div>
+
+      <div className="fixed bottom-4 right-4 z-50 rounded-full border border-slate-200 bg-white p-2 shadow-lg md:hidden dark:border-slate-800 dark:bg-slate-900">
+        <DarkModeToggle />
       </div>
 
-      {/* Main Content */}
-      <div className="pt-16">
-        {/* Hero Section - Full Height */}
+      <main className="pt-16">
         <section
           id="home"
-          className="relative bg-cover bg-center min-h-[calc(100vh-4rem)] flex items-center"
-          style={{ backgroundImage: "url('/Portfolio/assets/Homepage/Background.png')" }}
+          className="relative flex min-h-[calc(100vh-4rem)] items-center overflow-hidden bg-cover bg-center"
+          style={{ backgroundImage: "url('/Portfolio/assets/Homepage/Background.webp')" }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50 dark:from-black/80 dark:to-black/60"></div>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-            <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="md:w-1/2 space-y-6">
-                <h1 className="text-5xl font-bold text-white text-center md:text-left">
+          <div className="absolute inset-0 bg-slate-950/75" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,47,73,0.86),rgba(15,23,42,0.62),rgba(15,23,42,0.48))]" />
+          <div className="section-shell relative z-10 py-16">
+            <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+              <div className="max-w-3xl">
+                <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">
+                  {PERSONAL_INFO.title}
+                </p>
+                <h1 className="text-4xl font-bold text-white sm:text-6xl">
                   {PERSONAL_INFO.name}
                 </h1>
-                <p className="text-xl text-gray-200 dark:text-gray-300 leading-relaxed">
+                <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-100 sm:text-xl">
                   {PERSONAL_INFO.about}
                 </p>
-                <div className="flex space-x-4">
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <a
+                    href="https://drive.google.com/file/d/1Rp0ik2txbLHpt3TsWaiKfsctHayQGuUO/view?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-lg bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-cyan-950/20 transition-colors hover:bg-cyan-300"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    Resume
+                  </a>
                   <a
                     href={PERSONAL_INFO.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-white hover:text-blue-300 dark:hover:text-blue-400 flex items-center transition-colors"
+                    className="inline-flex items-center gap-2 rounded-lg border border-white/35 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
                   >
-                    <Linkedin className="w-5 h-5 mr-2" />
+                    <Linkedin className="h-4 w-4" />
                     LinkedIn
                   </a>
                   <a
-                    href="https://drive.google.com/file/d/1bwJzd-vFea0b1D6AThBjXqKVGcbwfeiJ/view?usp=sharing"
+                    href={PERSONAL_INFO.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-white hover:text-blue-300 dark:hover:text-blue-400 flex items-center transition-colors"
+                    className="inline-flex items-center gap-2 rounded-lg border border-white/35 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
                   >
-                    <ExternalLink className="w-5 h-5 mr-2" />
-                    Resume
+                    <Github className="h-4 w-4" />
+                    GitHub
                   </a>
-                  <a
-                    href="https://github.com/R-Charan"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white hover:text-blue-300 dark:hover:text-blue-400 flex items-center transition-colors"
-                  >
-                    <Github className="w-5 h-5 mr-2" />
-                    Github
+                </div>
+                <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-200">
+                  <span className="inline-flex items-center gap-2">
+                    <MapPin className="h-4 w-4 text-cyan-200" />
+                    {PERSONAL_INFO.location}
+                  </span>
+                  <a className="inline-flex items-center gap-2 hover:text-white" href={`mailto:${PERSONAL_INFO.email}`}>
+                    <Mail className="h-4 w-4 text-cyan-200" />
+                    {PERSONAL_INFO.email}
+                  </a>
+                  <a className="inline-flex items-center gap-2 hover:text-white" href={`tel:${PERSONAL_INFO.phone.replace(/\s/g, '')}`}>
+                    <Phone className="h-4 w-4 text-cyan-200" />
+                    {PERSONAL_INFO.phone}
                   </a>
                 </div>
               </div>
-              <div className="mt-8 md:mt-0 md:w-1/2 flex justify-center">
-                <div className="relative">
-                  <div className="absolute inset-0 rounded-full transform translate-x-2 translate-y-2"></div>
-                  <img
-                    src={PERSONAL_INFO.photo}
-                    alt={PERSONAL_INFO.name}
-                    className="relative rounded-full w-64 h-64 object-cover object-[center_0%] shadow-lg border-4 border-white dark:border-gray-300"
-                  />
-                </div>
+              <div className="flex justify-center lg:justify-end">
+                <img
+                  src={PERSONAL_INFO.photo}
+                  alt={PERSONAL_INFO.name}
+                  width={320}
+                  height={320}
+                  className="aspect-square w-64 rounded-full border-4 border-white/90 object-cover object-[center_0%] shadow-2xl shadow-slate-950/50 sm:w-80"
+                />
               </div>
             </div>
           </div>
         </section>
 
-        {/* Experience & Education Section */}
-        <section id="experience & education" className="bg-gray-50 dark:bg-gray-800 py-16 transition-colors">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-12 transition-colors">Work Experience & Education</h2>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Work Experience Column */}
+        <section id="experience" className="bg-slate-50 py-20 transition-colors dark:bg-slate-900">
+          <div className="section-shell">
+            <div className="mb-10 text-center">
+              <p className="section-kicker">Background</p>
+              <h2 className="section-title">Work Experience & Education</h2>
+            </div>
+            <div className="grid gap-8 md:grid-cols-2">
               <div>
-                <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6 flex items-center transition-colors">
-                  <Briefcase className="w-6 h-6 mr-2" />
+                <h3 className="mb-5 flex items-center text-xl font-bold text-slate-900 dark:text-white">
+                  <Briefcase className="mr-2 h-5 w-5 text-cyan-700 dark:text-cyan-300" />
                   Work Experience
                 </h3>
-                <div className="space-y-6">
-                  {WORK_EXPERIENCE.map((job, index) => (
-                    <div key={index} className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md transition-colors">
-                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white transition-colors">{job.title}</h4>
-                      <p className="text-blue-600 dark:text-blue-400 font-medium transition-colors">{job.company}</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mb-2 transition-colors">{job.duration}</p>
-                      <p className="text-gray-700 dark:text-gray-300 transition-colors">{job.description}</p>
-                      {job.skills && (
-                        <div className="mt-3">
-                          <p className="text-sm text-gray-600 dark:text-gray-400 transition-colors">
-                            <span className="font-medium">Skills:</span> {job.skills}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
+                {WORK_EXPERIENCE.map((job, index) => (
+                  <article key={index} className="surface-card p-6">
+                    <p className="text-sm font-medium text-cyan-700 dark:text-cyan-300">{job.duration}</p>
+                    <h4 className="mt-2 text-xl font-semibold text-slate-950 dark:text-white">{job.title}</h4>
+                    <p className="mt-1 font-medium text-slate-700 dark:text-slate-300">{job.company}</p>
+                    <p className="mt-4 text-slate-600 dark:text-slate-300">{job.description}</p>
+                    {job.skills && <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">Skills: {job.skills}</p>}
+                  </article>
+                ))}
               </div>
-
-              {/* Education Column */}
               <div>
-                <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6 flex items-center transition-colors">
-                  <GraduationCap className="w-6 h-6 mr-2" />
+                <h3 className="mb-5 flex items-center text-xl font-bold text-slate-900 dark:text-white">
+                  <GraduationCap className="mr-2 h-5 w-5 text-cyan-700 dark:text-cyan-300" />
                   Education
                 </h3>
-                <div className="space-y-6">
-                  {EDUCATION.map((edu, index) => (
-                    <div key={index} className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md transition-colors">
-                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white transition-colors">{edu.degree}</h4>
-                      <p className="text-blue-600 dark:text-blue-400 font-medium transition-colors">{edu.institution}</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mb-2 transition-colors">{edu.duration}</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mb-2 transition-colors">{edu.description}</p>
-                      {edu.gpa && <p className="text-gray-700 dark:text-gray-300 transition-colors">GPA: {edu.gpa}</p>}
-                      {edu.coursework && (
-                        <div className="mt-3">
-                          <p className="text-sm text-gray-600 dark:text-gray-400 transition-colors">
-                            <span className="font-medium">Relevant Coursework:</span> {edu.coursework}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
+                {EDUCATION.map((edu, index) => (
+                  <article key={index} className="surface-card p-6">
+                    <p className="text-sm font-medium text-cyan-700 dark:text-cyan-300">{edu.duration}</p>
+                    <h4 className="mt-2 text-xl font-semibold text-slate-950 dark:text-white">{edu.degree}</h4>
+                    <p className="mt-1 font-medium text-slate-700 dark:text-slate-300">{edu.institution}</p>
+                    <p className="mt-4 text-slate-600 dark:text-slate-300">{edu.description}</p>
+                    {edu.gpa && <p className="mt-3 text-sm text-slate-500 dark:text-slate-400">GPA: {edu.gpa}</p>}
+                    {edu.coursework && <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Relevant Coursework: {edu.coursework}</p>}
+                  </article>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* Projects Section */}
-        <section id="projects" className="bg-white dark:bg-gray-900 py-16 transition-colors">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-8 transition-colors">Projects</h2>
-            <div className="relative">
-              <button
-                onClick={() => scrollProjects('left')}
-                className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-6 bg-white dark:bg-gray-700 rounded-full p-2 shadow-lg z-10 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
-              >
-                <ChevronLeft className="w-6 h-6 text-gray-600 dark:text-gray-300" />
-              </button>
-              <div
-                ref={projectsContainerRef}
-                className="overflow-x-auto pb-4 hide-scrollbar"
-              >
-                <div className="flex space-x-6 min-w-max">
-                  {PROJECTS.map((project) => (
-                    <div
-                      key={project.id}
-                      className="w-[400px] flex-none bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl dark:hover:shadow-2xl"
+        <section id="projects" className="bg-white py-20 transition-colors dark:bg-slate-950">
+          <div className="section-shell">
+            <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="section-kicker">Selected Work</p>
+                <h2 className="section-title">Projects</h2>
+              </div>
+              <div className="hidden gap-2 sm:flex">
+                <button
+                  onClick={() => scrollProjects('left')}
+                  className="rounded-lg border border-slate-200 bg-white p-2 text-slate-700 shadow-sm transition-colors hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+                  aria-label="Scroll projects left"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  onClick={() => scrollProjects('right')}
+                  className="rounded-lg border border-slate-200 bg-white p-2 text-slate-700 shadow-sm transition-colors hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+                  aria-label="Scroll projects right"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+            <div ref={projectsContainerRef} className="hide-scrollbar overflow-x-auto pb-4">
+              <div className="flex min-w-max gap-6">
+                {PROJECTS.map((project) => (
+                  <article key={project.id} className="surface-card flex w-[min(84vw,390px)] flex-none flex-col overflow-hidden hover:-translate-y-1 hover:shadow-xl">
+                    <button
+                      onClick={() => {
+                        saveHomeScrollPosition();
+                        navigate(`/projects/${project.id}`);
+                      }}
+                      className="block text-left"
                     >
                       <img
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-48 object-cover"
+                        loading="lazy"
+                        width={390}
+                        height={208}
+                        className="h-52 w-full object-cover"
                       />
-                      <div className="p-6">
+                    </button>
+                    <div className="flex flex-1 flex-col p-6">
+                      <button
+                        onClick={() => {
+                          saveHomeScrollPosition();
+                          navigate(`/projects/${project.id}`);
+                        }}
+                        className="text-left text-xl font-semibold text-slate-950 transition-colors hover:text-cyan-700 dark:text-white dark:hover:text-cyan-300"
+                      >
+                        {project.title}
+                      </button>
+                      <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{project.description}</p>
+                      <p className="mt-4 text-sm font-medium text-slate-700 dark:text-slate-200">Skills/Concepts: {project.skills}</p>
+                      <div className="mt-6 flex flex-wrap gap-3">
                         <button
-                          onClick={() => navigate(`/projects/${project.id}`)}
-                          className="block text-xl font-semibold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition duration-300"
+                          onClick={() => {
+                            saveHomeScrollPosition();
+                            navigate(`/projects/${project.id}`);
+                          }}
+                          className="rounded-lg bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-cyan-700 dark:bg-white dark:text-slate-950 dark:hover:bg-cyan-200"
                         >
-                          {project.title}
+                          Details
                         </button>
-                        <p className="mt-2 text-gray-500 dark:text-gray-400 line-clamp-3 transition-colors">{project.description}</p>
-
-                        <p className="mt-2 text-sm text-gray-700 dark:text-gray-300 font-medium transition-colors">
-                          Skills/Concepts: {project.skills}
-                        </p>
-
                         <a
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="mt-4 inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
+                          className="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
                         >
-                          <Github className="w-5 h-5 mr-2" />
-                          View on GitHub
+                          <Github className="h-4 w-4" />
+                          GitHub
                         </a>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  </article>
+                ))}
               </div>
-              <button
-                onClick={() => scrollProjects('right')}
-                className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-white dark:bg-gray-700 rounded-full p-2 shadow-lg z-10 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
-              >
-                <ChevronRight className="w-6 h-6 text-gray-600 dark:text-gray-300" />
-              </button>
             </div>
           </div>
         </section>
 
-        {/* Skills Section */}
-        <section id="skills" className="bg-gray-50 dark:bg-gray-800 py-16 transition-colors">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-8 transition-colors">Skills & Expertise</h2>
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
+        <section id="skills" className="bg-slate-50 py-20 transition-colors dark:bg-slate-900">
+          <div className="section-shell">
+            <div className="mb-10 text-center">
+              <p className="section-kicker">Toolkit</p>
+              <h2 className="section-title">Skills & Expertise</h2>
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {Object.entries(SKILLS).map(([category, skills]) => (
-                <div key={category} className="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg transition-colors">
-                  <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-6 pb-3 border-b border-gray-200 dark:border-gray-600 transition-colors">
+                <section key={category} className="surface-card p-6">
+                  <h3 className="border-b border-slate-200 pb-3 text-xl font-semibold text-slate-900 dark:border-slate-800 dark:text-white">
                     {category}
                   </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {skills.map((skill, index) => (
-                      <div key={index} className="flex items-center space-x-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-600 hover:bg-gray-100 dark:hover:bg-gray-500 transition-colors duration-200">
-                        <img src={skill.icon} alt={skill.name} className="w-8 h-8" />
-                        <span className="text-lg text-gray-700 dark:text-gray-300 transition-colors">{skill.name}</span>
+                  <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    {skills.map((skill) => (
+                      <div key={skill.name} className="flex min-h-14 items-center gap-3 rounded-lg bg-slate-50 p-3 dark:bg-slate-800">
+                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-white p-1.5 shadow-sm">
+                          <img
+                            src={skill.icon}
+                            alt=""
+                            loading="lazy"
+                            decoding="async"
+                            width={32}
+                            height={32}
+                            className="h-7 w-7 object-contain"
+                          />
+                        </span>
+                        <span className="text-base font-medium text-slate-700 dark:text-slate-200">{skill.name}</span>
                       </div>
                     ))}
                   </div>
+                </section>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <AffiliationsSection affiliations={AFFILIATIONS} />
+
+        <section id="hobbies" className="bg-slate-50 py-20 transition-colors dark:bg-slate-900">
+          <div className="section-shell">
+            <div className="mb-10 text-center">
+              <p className="section-kicker">Outside Work</p>
+              <h2 className="section-title">Hobbies</h2>
+            </div>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+              {HOBBIES.map((hobby) => (
+                <div key={hobby} className="surface-card p-5 text-center">
+                  <span className="text-base font-semibold text-slate-700 dark:text-slate-200">{hobby}</span>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <AffiliationsSection AFFILIATIONS={AFFILIATIONS} />
-
-        {/* Hobbies Section */}
-        <section id="hobbies" className="bg-gray-50 dark:bg-gray-800 py-16 transition-colors">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-8 transition-colors">Hobbies</h2>
-            <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-              {HOBBIES.map((hobby, index) => (
-                <div key={index} className="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 text-center hover:shadow-lg dark:hover:shadow-gray-900/20 transition-all duration-200">
-                  <span className="text-lg text-gray-700 dark:text-gray-300 font-medium transition-colors">{hobby}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section id="contact" className="bg-white dark:bg-gray-900 py-16 transition-colors">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-8 transition-colors">Get In Touch</h2>
-            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-8 text-center transition-colors">
-              <p className="text-gray-600 dark:text-gray-400 mb-6 transition-colors">
-                Interested in discussing about anything or exploring collaboration opportunities?
+        <section id="contact" className="bg-white py-20 transition-colors dark:bg-slate-950">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <p className="section-kicker">Contact</p>
+              <h2 className="section-title">Get In Touch</h2>
+              <p className="mx-auto mt-4 max-w-2xl text-slate-600 dark:text-slate-300">
+              Interested in discussing about anything or exploring collaboration opportunities?
               </p>
-              <div className="flex justify-center">
-                <a
-                  href={`mailto:${PERSONAL_INFO.email}`}
-                  className="inline-flex items-center space-x-2 bg-blue-600 dark:bg-blue-700 text-white px-6 py-3 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors"
+            </div>
+            <form onSubmit={handleContactSubmit} className="surface-card mt-10 p-6 text-left sm:p-8">
+              <div className="grid gap-5 sm:grid-cols-2">
+                <label className="block">
+                  <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">Name</span>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    value={contactForm.name}
+                    onChange={(event) => {
+                      setContactForm((form) => ({ ...form, name: event.target.value }));
+                      setContactStatus('idle');
+                    }}
+                    className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-cyan-600 focus:ring-2 focus:ring-cyan-600/20 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+                    placeholder="Your name"
+                  />
+                </label>
+                <label className="block">
+                  <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">Email</span>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    value={contactForm.email}
+                    onChange={(event) => {
+                      setContactForm((form) => ({ ...form, email: event.target.value }));
+                      setContactStatus('idle');
+                    }}
+                    className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-cyan-600 focus:ring-2 focus:ring-cyan-600/20 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+                    placeholder="you@example.com"
+                  />
+                </label>
+              </div>
+              <label className="mt-5 block">
+                <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">Message</span>
+                <textarea
+                  name="message"
+                  required
+                  rows={6}
+                  value={contactForm.message}
+                  onChange={(event) => {
+                    setContactForm((form) => ({ ...form, message: event.target.value }));
+                    setContactStatus('idle');
+                  }}
+                  className="mt-2 w-full resize-y rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-cyan-600 focus:ring-2 focus:ring-cyan-600/20 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+                  placeholder="Write your message here..."
+                />
+              </label>
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <button
+                  type="submit"
+                  disabled={contactStatus === 'sending'}
+                  className="inline-flex items-center gap-2 rounded-lg bg-cyan-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-400"
                 >
-                  <Mail className="w-5 h-5" />
-                  <span>Send Email</span>
+                  <Mail className="h-4 w-4" />
+                  {contactStatus === 'sending' ? 'Sending...' : 'Send Message'}
+                </button>
+                <a
+                  href={PERSONAL_INFO.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 dark:border-slate-800 dark:text-slate-200 dark:hover:bg-slate-900"
+                >
+                  <Linkedin className="h-4 w-4" />
+                  LinkedIn
                 </a>
               </div>
-            </div>
+              {contactStatus === 'sent' && (
+                <p className="mt-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800 dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-emerald-200">
+                  Message sent. I will get it in my inbox.
+                </p>
+              )}
+              {contactStatus === 'error' && (
+                <p className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-800 dark:border-red-900/60 dark:bg-red-950/40 dark:text-red-200">
+                  Something went wrong. Please try again or reach out on LinkedIn.
+                </p>
+              )}
+            </form>
           </div>
         </section>
-      </div>
+      </main>
     </div>
   );
 }

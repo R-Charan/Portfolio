@@ -1,6 +1,5 @@
-import React from 'react';
 import { Moon, Sun } from 'lucide-react';
-import { useDarkMode } from '../contexts/DarkModeContext';
+import { useDarkMode } from '../contexts/darkMode';
 
 const DarkModeToggle = () => {
   const { isDark, toggleDarkMode } = useDarkMode();

@@ -1,6 +1,5 @@
-import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Home, Github, Youtube, ArrowLeft } from 'lucide-react';
+import { Home, Github, ArrowLeft } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
 
@@ -43,15 +42,15 @@ Successfully built an end-to-end robotic grasping pipeline from perception to ph
     `,
     images: [
       {
-        url: '/Portfolio/assets/Grasp_Planning/UR5e_simulation.png',
+        url: '/Portfolio/assets/Grasp_Planning/UR5e_simulation.webp',
         caption: 'Full Setup in ROS Noetic with Gazebo'
       },
       {
-        url: '/Portfolio/assets/Grasp_Planning/Obstacle.png',
+        url: '/Portfolio/assets/Grasp_Planning/Obstacle.webp',
         caption: 'Grasp Planning considering Obstacle Positioning'
       },
       {
-        url: '/Portfolio/assets/Grasp_Planning/Cylinder.png',
+        url: '/Portfolio/assets/Grasp_Planning/Cylinder.webp',
         caption: 'Grasp Planning for a cylindrical object'
       }
     ],
@@ -111,15 +110,15 @@ significantly reduced muscle effort while preserving natural walking biomechanic
 **Institution:** National Institute of Technology, Tiruchirapalli (NITT)`,
     images: [
       {
-        url: '/Portfolio/assets/Project_Auxilium/Full_Setup.png',
+        url: '/Portfolio/assets/Project_Auxilium/Full_Setup.webp',
         caption: 'Full Setup'
       },
       {
-        url: '/Portfolio/assets/Project_Auxilium/Single_Leg.png',
+        url: '/Portfolio/assets/Project_Auxilium/Single_Leg.webp',
         caption: 'Single Leg'
       },
       {
-        url: '/Portfolio/assets/Project_Auxilium/PCB.png',
+        url: '/Portfolio/assets/Project_Auxilium/PCB.webp',
         caption: 'PCB design for master slave connection of motors'
       }
     ],
@@ -150,16 +149,16 @@ The rover uses ideal steering system to make a turn of any desired radius.
 - Vallimayl
 
 **Notable Achievements**
-- Runner-Up in Sangam Hardware Hackathon \'22 - \'23, Defence and Space Domain
-- Pre-Finalist in Robofest \'22 - \'23, GUJCOST
+- Runner-Up in Sangam Hardware Hackathon '22 - '23, Defence and Space Domain
+- Pre-Finalist in Robofest '22 - '23, GUJCOST
     `,
     images: [
       {
-        url: '/Portfolio/assets/Virya/Rover_exploded_view.gif',
+        url: '/Portfolio/assets/Virya/Rover_exploded_view.webp',
         caption: 'Rover Exploded View'
       },
       {
-        url: '/Portfolio/assets/Virya/Rover Final Assembly.jpg',
+        url: '/Portfolio/assets/Virya/Rover_Final_Assembly.webp',
         caption: 'Final Assembly'
       },
       {
@@ -215,7 +214,7 @@ more independent and self-sufficient.
   },
   'project5': {
     id: 'project5',
-    title: 'AgriBot E-Yantra Robotics Competition \'21-\'22',
+    title: "AgriBot E-Yantra Robotics Competition '21-'22",
     description: `
 # Project Overview
 This project is part of the E-Yantra Robotics Competition (EYRC) for the year 2021-2022. The objective of the project is to develop an algorithm 
@@ -236,7 +235,7 @@ avoidance.
     images: [
 
       {
-        url: '/Portfolio/assets/AgriBot/Cover_photo.png',
+        url: '/Portfolio/assets/AgriBot/Cover_photo.webp',
         caption: 'Simulation in Gazebo of AgriBot picking the fruit'
       }
     ],
@@ -249,15 +248,23 @@ function ProjectDetail() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const project = id ? PROJECTS[id] : null;
+  const navigateBackToPortfolio = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+      return;
+    }
+
+    navigate('/');
+  };
 
   if (!project) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white">
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-white">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Project not found</h1>
+          <h1 className="mb-4 text-2xl font-bold">Project not found</h1>
           <button
             onClick={() => navigate('/')}
-            className="inline-flex items-center px-4 py-2 rounded-md shadow-sm text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800"
+            className="inline-flex items-center rounded-lg bg-cyan-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-700"
           >
             <Home className="w-4 h-4 mr-2" />
             Go Home
@@ -268,70 +275,69 @@ function ProjectDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white">
-      {/* Navigation */}
-      <nav className="bg-white dark:bg-gray-800 shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
+    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-white">
+      <nav className="border-b border-slate-200 bg-white/90 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
+        <div className="section-shell">
+          <div className="flex h-16 items-center justify-between">
             <button
-              onClick={() => navigate('/')}
-              className="inline-flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-white"
+              onClick={navigateBackToPortfolio}
+              className="inline-flex items-center rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100 hover:text-cyan-700 dark:text-slate-200 dark:hover:bg-slate-900 dark:hover:text-cyan-300"
             >
               <ArrowLeft className="w-5 h-5 mr-1" />
-              Back
+              Back to portfolio
             </button>
           </div>
         </div>
       </nav>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Title */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
+      <main className="section-shell py-12 sm:py-16">
+        <div className="mb-10 max-w-4xl">
+          <p className="section-kicker">Project Detail</p>
+          <h1 className="mt-3 text-4xl font-bold text-slate-950 dark:text-white sm:text-5xl">{project.title}</h1>
         </div>
 
-        {/* Image Gallery */}
         <div className="mb-12 overflow-x-auto">
-          <div className={`flex pb-4 ${project.images.length === 1 ? 'justify-center' : 'space-x-6'}`}>
+          <div className={`flex gap-6 pb-4 ${project.images.length === 1 ? 'justify-start' : ''}`}>
             {project.images.map((image, index) => (
-              <div key={index} className={`${project.images.length === 1 ? '' : 'flex-none'} w-96`}>
-                <div className="relative h-64 rounded-lg overflow-hidden">
+              <figure key={index} className="w-[min(84vw,28rem)] flex-none">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-slate-200 bg-slate-100 shadow-sm dark:border-slate-800 dark:bg-slate-900">
                   <img
                     src={image.url}
                     alt={image.caption}
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                    width={448}
+                    height={336}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 text-center transition-colors">
+                <figcaption className="mt-3 text-center text-sm text-slate-600 transition-colors dark:text-slate-400">
                   {image.caption}
-                </p>
-              </div>
+                </figcaption>
+              </figure>
             ))}
           </div>
         </div>
 
-        {/* Description */}
-        <div className="bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100 rounded-lg shadow-lg p-8 mb-12">
-          <div className="prose max-w-none">
+        <article className="mb-12 rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-8">
+          <div className="max-w-none text-slate-700 dark:text-slate-200">
             <ReactMarkdown
               components={{
-                p: ({ children }) => <p className="mb-4">{children}</p>,
-                strong: ({ children }) => <strong className="font-bold">{children}</strong>,
+                p: ({ children }) => <p className="mb-4 leading-7">{children}</p>,
+                strong: ({ children }) => <strong className="font-bold text-slate-950 dark:text-white">{children}</strong>,
                 em: ({ children }) => <em className="italic">{children}</em>,
-                ul: ({ children }) => <ul className="list-disc pl-6 mb-4">{children}</ul>,
-                ol: ({ children }) => <ol className="list-decimal pl-6 mb-4">{children}</ol>,
+                ul: ({ children }) => <ul className="mb-4 list-disc pl-6 leading-7">{children}</ul>,
+                ol: ({ children }) => <ol className="mb-4 list-decimal pl-6 leading-7">{children}</ol>,
                 li: ({ children }) => <li className="mb-1">{children}</li>,
-                h1: ({ children }) => <h1 className="text-2xl font-bold mb-4 mt-6">{children}</h1>,
-                h2: ({ children }) => <h2 className="text-xl font-bold mb-3 mt-5">{children}</h2>,
-                h3: ({ children }) => <h3 className="text-lg font-semibold mb-2 mt-4">{children}</h3>,
-                h4: ({ children }) => <h4 className="text-base font-semibold mb-2 mt-3">{children}</h4>,
+                h1: ({ children }) => <h1 className="mb-4 mt-6 text-2xl font-bold text-slate-950 dark:text-white">{children}</h1>,
+                h2: ({ children }) => <h2 className="mb-3 mt-6 text-xl font-bold text-slate-950 dark:text-white">{children}</h2>,
+                h3: ({ children }) => <h3 className="mb-2 mt-5 text-lg font-semibold text-slate-950 dark:text-white">{children}</h3>,
+                h4: ({ children }) => <h4 className="mb-2 mt-4 text-base font-semibold text-slate-950 dark:text-white">{children}</h4>,
                 a: ({ href, children }) => (
                   <a
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline transition-colors duration-200"
+                    className="text-cyan-700 underline transition-colors duration-200 hover:text-cyan-900 dark:text-cyan-300 dark:hover:text-cyan-200"
                   >
                     {children}
                   </a>
@@ -341,27 +347,23 @@ function ProjectDetail() {
               {project.description}
             </ReactMarkdown>
           </div>
-        </div>
+        </article>
 
-        {/* Links */}
-        <div className="flex flex-col items-center space-y-6">
-          <div className="flex space-x-4">
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-gray-800 hover:bg-gray-900"
-              >
-                <Github className="w-5 h-5 mr-2" />
-                View on GitHub
-              </a>
-            )}
-          </div>
-
+        <div className="flex flex-wrap items-center gap-4">
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center rounded-lg bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-cyan-700 dark:bg-white dark:text-slate-950 dark:hover:bg-cyan-200"
+            >
+              <Github className="w-5 h-5 mr-2" />
+              View on GitHub
+            </a>
+          )}
           <button
-            onClick={() => navigate('/')}
-            className="inline-flex items-center px-6 py-3 border border-gray-300 rounded-md shadow-sm text-base font-medium text-gray-700 bg-white hover:bg-gray-50"
+            onClick={navigateBackToPortfolio}
+            className="inline-flex items-center rounded-lg border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition-colors hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
             Back to Home
